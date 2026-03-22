@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Maddit - 소프트웨어 쇼케이스</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+      background: #f9f9f9;
+      color: #0f0f0f;
+    }
+
+    /* ── HEADER ── */
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 56px;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      padding: 0 16px;
+      gap: 8px;
+      z-index: 200;
+      border-bottom: 1px solid #e5e5e5;
+    }
+
+    .hdr-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-shrink: 0;
+      min-width: 200px;
+    }
+
+    .hamburger {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 8px;
+      border-radius: 50%;
+      font-size: 18px;
+      color: #0f0f0f;
+      transition: background 0.15s;
+    }
+    .hamburger:hover { background: #e5e5e5; }
+
+    .logo {
+      font-size: 20px;
+      font-weight: 700;
+      color: #e94560;
+      text-decoration: none;
+      letter-spacing: -0.5px;
+    }
+    .logo span { color: #0f0f0f; }
+
+    .hdr-center {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      max-width: 640px;
+      margin: 0 auto;
+    }
+
+    .search-form {
+      display: flex;
+      flex: 1;
+      height: 40px;
+      border: 1px solid #d3d3d3;
+      border-radius: 40px;
+      overflow: hidden;
+    }
+
+    .search-form input {
+      flex: 1;
+      border: none;
+      outline: none;
+      padding: 0 16px;
+      font-size: 16px;
+      color: #0f0f0f;
+      background: #f8f8f8;
+    }
+
+    .search-form input:focus {
+      background: #fff;
+    }
+
+    .search-form button {
+      width: 64px;
+      border: none;
+      border-left: 1px solid #d3d3d3;
+      background: #f8f8f8;
+      cursor: pointer;
+      font-size: 18px;
+      color: #606060;
+      transition: background 0.15s;
+    }
+    .search-form button:hover { background: #e8e8e8; }
+
+    .mic-btn {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      border: none;
+      background: #f2f2f2;
+      cursor: pointer;
+      font-size: 16px;
+      flex-shrink: 0;
+      transition: background 0.15s;
+    }
+    .mic-btn:hover { background: #e5e5e5; }
+
+    .hdr-right {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      flex-shrink: 0;
+      min-width: 200px;
+      justify-content: flex-end;
+    }
+
+    .icon-btn {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      border: none;
+      background: none;
+      cursor: pointer;
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      transition: background 0.15s;
+    }
+    .icon-btn:hover { background: #e5e5e5; }
+
+    .notif-dot {
+      position: absolute;
+      top: 6px; right: 6px;
+      width: 8px; height: 8px;
+      background: #e94560;
+      border-radius: 50%;
+      border: 2px solid #fff;
+    }
+
+    .signup-btn {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 0 14px;
+      height: 36px;
+      border: 1px solid #065fd4;
+      border-radius: 20px;
+      background: none;
+      color: #065fd4;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .signup-btn:hover { background: #def1ff; }
+
+    /* ── SIDEBAR ── */
+    .sidebar {
+      position: fixed;
+      top: 56px;
+      left: 0;
+      width: 240px;
+      height: calc(100vh - 56px);
+      background: #fff;
+      overflow-y: auto;
+      z-index: 100;
+      padding: 12px 0;
+    }
+
+    .sidebar::-webkit-scrollbar { width: 4px; }
+    .sidebar::-webkit-scrollbar-thumb { background: #ddd; border-radius: 2px; }
+
+    .nav-section {
+      padding: 0 0 8px;
+      border-bottom: 1px solid #e5e5e5;
+      margin-bottom: 8px;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      padding: 0 24px;
+      height: 40px;
+      cursor: pointer;
+      border-radius: 10px;
+      margin: 0 8px;
+      text-decoration: none;
+      color: #0f0f0f;
+      font-size: 14px;
+      font-weight: 400;
+      transition: background 0.15s;
+    }
+    .nav-item:hover { background: #e5e5e5; }
+    .nav-item.active { background: #e5e5e5; font-weight: 600; }
+
+    .nav-icon { font-size: 20px; width: 24px; text-align: center; }
+
+    .nav-section-title {
+      padding: 8px 24px 4px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #0f0f0f;
+    }
+
+    /* ── MAIN ── */
+    .main {
+      margin-left: 240px;
+      margin-top: 56px;
+      min-height: calc(100vh - 56px);
+    }
+
+    /* Category chips */
+    .chips-bar {
+      position: sticky;
+      top: 56px;
+      background: #fff;
+      z-index: 90;
+      padding: 12px 24px;
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      border-bottom: 1px solid #e5e5e5;
+    }
+    .chips-bar::-webkit-scrollbar { display: none; }
+
+    .chip {
+      flex-shrink: 0;
+      padding: 0 12px;
+      height: 32px;
+      border-radius: 8px;
+      border: none;
+      background: #f2f2f2;
+      color: #0f0f0f;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .chip:hover { background: #e5e5e5; }
+    .chip.active { background: #0f0f0f; color: #fff; }
+
+    /* Content area */
+    .content {
+      padding: 24px 24px 40px;
+    }
+
+    /* Section label */
+    .section-label {
+      font-size: 18px;
+      font-weight: 600;
+      color: #0f0f0f;
+      margin: 0 0 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .section-label a {
+      font-size: 13px;
+      color: #606060;
+      text-decoration: none;
+      font-weight: 400;
+    }
+    .section-label a:hover { color: #065fd4; }
+
+    /* Program grid */
+    .prog-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 16px 12px;
+      margin-bottom: 40px;
+    }
+
+    .prog-card {
+      cursor: pointer;
+      transition: transform 0.15s;
+    }
+    .prog-card:hover { transform: translateY(-2px); }
+
+    .prog-thumb {
+      width: 100%;
+      aspect-ratio: 16/9;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 36px;
+      margin-bottom: 12px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .prog-badge {
+      position: absolute;
+      bottom: 6px; right: 8px;
+      background: rgba(0,0,0,0.75);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+
+    .prog-badge.new { background: #e94560; }
+    .prog-badge.hot { background: #f57c00; }
+
+    .rank-badge {
+      position: absolute;
+      top: 6px; left: 8px;
+      background: rgba(0,0,0,0.7);
+      color: #ffd200;
+      font-size: 13px;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+    .rank-badge.r1 { color: #ffd200; }
+    .rank-badge.r2 { color: #ccc; }
+    .rank-badge.r3 { color: #cd7f32; }
+
+    .prog-meta {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+    }
+
+    .prog-avatar {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      margin-top: 2px;
+    }
+
+    .prog-info { flex: 1; min-width: 0; }
+
+    .prog-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: #0f0f0f;
+      line-height: 1.4;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      margin-bottom: 4px;
+    }
+
+    .prog-dev {
+      font-size: 13px;
+      color: #606060;
+      margin-bottom: 2px;
+    }
+    .prog-dev:hover { color: #0f0f0f; }
+
+    .prog-stats {
+      font-size: 12px;
+      color: #606060;
+    }
+
+    /* Divider */
+    .section-divider {
+      height: 1px;
+      background: #e5e5e5;
+      margin: 0 0 32px;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      margin-left: 240px;
+      padding: 24px;
+      font-size: 12px;
+      color: #aaa;
+      border-top: 1px solid #e5e5e5;
+      background: #fff;
+    }
+
+    /* Responsive */
+    @media (max-width: 1200px) {
+      .prog-grid { grid-template-columns: repeat(4, 1fr); }
+    }
+    @media (max-width: 960px) {
+      .sidebar { display: none; }
+      .main, footer { margin-left: 0; }
+      .prog-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (max-width: 640px) {
+      .prog-grid { grid-template-columns: repeat(2, 1fr); }
+      .hdr-center { max-width: 200px; }
+      .hdr-left { min-width: auto; }
+      .hdr-right { min-width: auto; }
+      .signup-btn span { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── HEADER ── -->
+  <header>
+    <div class="hdr-left">
+      <button class="hamburger">☰</button>
+      <a href="#" class="logo"><img src="maddit_logo.png" height="35"/></a>
+    </div>
+
+    <div class="hdr-center">
+      <div class="search-form">
+        <input type="text" placeholder="프로그램 검색" />
+        <button>🔍</button>
+      </div>
+      <button class="mic-btn">🎤</button>
+    </div>
+
+    <div class="hdr-right">
+      <button class="icon-btn" title="프로그램 등록">➕</button>
+      <button class="icon-btn" title="알림">
+        🔔
+        <span class="notif-dot"></span>
+      </button>
+      <button class="signup-btn">👤 <span>로그인</span></button>
+    </div>
+  </header>
+
+  <!-- ── SIDEBAR ── -->
+  <aside class="sidebar">
+    <div class="nav-section">
+      <a href="#" class="nav-item active">
+        <span class="nav-icon">🏠</span> 홈
+      </a>
+      <a href="#" class="nav-item">
+        <span class="nav-icon">🔥</span> 인기 프로그램
+      </a>
+      <a href="#" class="nav-item">
+        <span class="nav-icon">⭐</span> 구독
+      </a>
+    </div>
+
+    <div class="nav-section">
+      <div class="nav-section-title">나의 활동</div>
+      <a href="#" class="nav-item">
+        <span class="nav-icon">🕘</span> 최근 본 프로그램
+      </a>
+      <a href="#" class="nav-item">
+        <span class="nav-icon">👍</span> 좋아요 누른 항목
+      </a>
+      <a href="#" class="nav-item">
+        <span class="nav-icon">📥</span> 다운로드 목록
+      </a>
+    </div>
+
+    <div class="nav-section">
+      <div class="nav-section-title">게시판</div>
+      <a href="#" class="nav-item">
+        <span class="nav-icon">✏️</span> 만들어주세요
+      </a>
+      <a href="#" class="nav-item">
+        <span class="nav-icon">💬</span> 자유게시판
+      </a>
+      <a href="#" class="nav-item">
+        <span class="nav-icon">📢</span> 공지사항
+      </a>
+    </div>
+
+    <div class="nav-section">
+      <div class="nav-section-title">카테고리</div>
+      <a href="#" class="nav-item">
+        <span class="nav-icon">⚡</span> 생산성
+      </a>
+      <a href="#" class="nav-item">
+        <span class="nav-icon">🛠️</span> 유틸리티
+      </a>
+      <a href="#" class="nav-item">
+        <span class="nav-icon">🔐</span> 보안
+      </a>
+      <a href="#" class="nav-item">
+        <span class="nav-icon">🖼️</span> 이미지 편집
+      </a>
+      <a href="#" class="nav-item">
+        <span class="nav-icon">💻</span> 개발도구
+      </a>
+      <a href="#" class="nav-item">
+        <span class="nav-icon">🗂️</span> 파일관리
+      </a>
+    </div>
+  </aside>
+
+  <!-- ── MAIN ── -->
+  <div class="main">
+
+    <!-- Category chips -->
+    <div class="chips-bar">
+      <button class="chip active">전체</button>
+      <button class="chip">생산성</button>
+      <button class="chip">유틸리티</button>
+      <button class="chip">보안</button>
+      <button class="chip">이미지 편집</button>
+      <button class="chip">개발도구</button>
+      <button class="chip">파일관리</button>
+      <button class="chip">무료</button>
+      <button class="chip">오픈소스</button>
+      <button class="chip">Windows</button>
+      <button class="chip">Mac</button>
+      <button class="chip">신규 등록</button>
+    </div>
+
+    <div class="content">
+
+      <!-- 최신 프로그램 -->
+      <div class="section-label">
+        🆕 최신 프로그램
+        <a href="#">전체보기 ›</a>
+      </div>
+      <div class="prog-grid">
+
+        <div class="prog-card">
+          <div class="prog-thumb" style="background:linear-gradient(135deg,#667eea,#764ba2)">
+            📊
+            <span class="prog-badge new">NEW</span>
+          </div>
+          <div class="prog-meta">
+            <div class="prog-avatar" style="background:#e8e8ff">📊</div>
+            <div class="prog-info">
+              <div class="prog-title">DataViz Pro — 엑셀 데이터 시각화 툴</div>
+              <div class="prog-dev">DataLab Studio</div>
+              <div class="prog-stats">⬇ 1,240 · 1일 전</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="prog-card">
+          <div class="prog-thumb" style="background:linear-gradient(135deg,#f093fb,#f5576c)">
+            🎨
+            <span class="prog-badge new">NEW</span>
+          </div>
+          <div class="prog-meta">
+            <div class="prog-avatar" style="background:#fde8f5">🎨</div>
+            <div class="prog-info">
+              <div class="prog-title">ColorPicker X — 화면 색상 추출기</div>
+              <div class="prog-dev">PixelTools</div>
+              <div class="prog-stats">⬇ 892 · 2일 전</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="prog-card">
+          <div class="prog-thumb" style="background:linear-gradient(135deg,#4facfe,#00f2fe)">
+            🖼️
+          </div>
+          <div class="prog-meta">
+            <div class="prog-avatar" style="background:#e0f4ff">🖼️</div>
+            <div class="prog-info">
+              <div class="prog-title">ImageBatch — 이미지 일괄 변환 도구</div>
+              <div class="prog-dev">ImgCraft</div>
+              <div class="prog-stats">⬇ 763 · 3일 전</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="prog-card">
+          <div class="prog-thumb" style="background:linear-gradient(135deg,#11998e,#38ef7d)">
+            📝
+          </div>
+          <div class="prog-meta">
+            <div class="prog-avatar" style="background:#e0fff0">📝</div>
+            <div class="prog-info">
+              <div class="prog-title">MarkPad — 마크다운 실시간 메모장</div>
+              <div class="prog-dev">NoteForge</div>
+              <div class="prog-stats">⬇ 521 · 4일 전</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="prog-card">
+          <div class="prog-thumb" style="background:linear-gradient(135deg,#f7971e,#ffd200)">
+            🔔
+          </div>
+          <div class="prog-meta">
+            <div class="prog-avatar" style="background:#fff8e0">🔔</div>
+            <div class="prog-info">
+              <div class="prog-title">NotiMate — 윈도우 스케줄 알림 앱</div>
+              <div class="prog-dev">RemindLab</div>
+              <div class="prog-stats">⬇ 408 · 5일 전</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="section-divider"></div>
+
+      <!-- 인기 프로그램 -->
+      <div class="section-label">
+        🔥 인기 프로그램
+        <a href="#">전체보기 ›</a>
+      </div>
+      <div class="prog-grid">
+
+        <div class="prog-card">
+          <div class="prog-thumb" style="background:linear-gradient(135deg,#4facfe,#00f2fe)">
+            📋
+            <span class="rank-badge r1">#1</span>
+            <span class="prog-badge hot">HOT</span>
+          </div>
+          <div class="prog-meta">
+            <div class="prog-avatar" style="background:#e0f4ff">📋</div>
+            <div class="prog-info">
+              <div class="prog-title">ClipBoard++ — 클립보드 히스토리 관리</div>
+              <div class="prog-dev">DevUtils</div>
+              <div class="prog-stats">⬇ 5,601 · 생산성</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="prog-card">
+          <div class="prog-thumb" style="background:linear-gradient(135deg,#2c3e50,#4ca1af)">
+            🔐
+            <span class="rank-badge r2">#2</span>
+          </div>
+          <div class="prog-meta">
+            <div class="prog-avatar" style="background:#e8f0f4">🔐</div>
+            <div class="prog-info">
+              <div class="prog-title">PassVault — 로컬 암호화 비밀번호 관리</div>
+              <div class="prog-dev">SecureSoft</div>
+              <div class="prog-stats">⬇ 4,330 · 보안</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="prog-card">
+          <div class="prog-thumb" style="background:linear-gradient(135deg,#11998e,#38ef7d)">
+            🗂️
+            <span class="rank-badge r3">#3</span>
+          </div>
+          <div class="prog-meta">
+            <div class="prog-avatar" style="background:#e0fff4">🗂️</div>
+            <div class="prog-info">
+              <div class="prog-title">FileOrganizer — 폴더 자동 정리 유틸리티</div>
+              <div class="prog-dev">FileMaster</div>
+              <div class="prog-stats">⬇ 3,820 · 파일관리</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="prog-card">
+          <div class="prog-thumb" style="background:linear-gradient(135deg,#f7971e,#ffd200)">
+            ⏱️
+            <span class="rank-badge">#4</span>
+          </div>
+          <div class="prog-meta">
+            <div class="prog-avatar" style="background:#fff8e0">⏱️</div>
+            <div class="prog-info">
+              <div class="prog-title">FocusTimer — 포모도로 집중 타이머 + 통계</div>
+              <div class="prog-dev">ProductivityHub</div>
+              <div class="prog-stats">⬇ 2,110 · 생산성</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="prog-card">
+          <div class="prog-thumb" style="background:linear-gradient(135deg,#667eea,#764ba2)">
+            📊
+            <span class="rank-badge">#5</span>
+          </div>
+          <div class="prog-meta">
+            <div class="prog-avatar" style="background:#e8e8ff">📊</div>
+            <div class="prog-info">
+              <div class="prog-title">DataViz Pro — 엑셀 데이터 시각화 툴</div>
+              <div class="prog-dev">DataLab Studio</div>
+              <div class="prog-stats">⬇ 1,240 · 데이터</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="section-divider"></div>
+
+      <!-- 만들어주세요 + 자유게시판 -->
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:24px;">
+
+        <div>
+          <div class="section-label">
+            ✏️ 만들어주세요
+            <a href="#">전체보기 ›</a>
+          </div>
+          <div style="background:#fff;border:1px solid #e5e5e5;border-radius:12px;overflow:hidden;">
+            <div style="display:flex;flex-direction:column;">
+
+              <div style="display:flex;align-items:center;gap:12px;padding:14px 16px;border-bottom:1px solid #f2f2f2;cursor:pointer;" onmouseover="this.style.background='#f9f9f9'" onmouseout="this.style.background=''">
+                <div style="width:40px;height:40px;border-radius:8px;background:#fff0f3;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">📋</div>
+                <div style="flex:1;min-width:0;">
+                  <div style="font-size:14px;font-weight:500;color:#0f0f0f;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">자동으로 폴더 날짜별 정리해주는 프로그램 있나요?</div>
+                  <div style="font-size:12px;color:#606060;margin-top:3px;">홍길동 · 10분 전 · 💬 5</div>
+                </div>
+              </div>
+
+              <div style="display:flex;align-items:center;gap:12px;padding:14px 16px;border-bottom:1px solid #f2f2f2;cursor:pointer;" onmouseover="this.style.background='#f9f9f9'" onmouseout="this.style.background=''">
+                <div style="width:40px;height:40px;border-radius:8px;background:#fff0f3;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">📱</div>
+                <div style="flex:1;min-width:0;">
+                  <div style="font-size:14px;font-weight:500;color:#0f0f0f;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">카카오톡 메시지 예약발송 프로그램 만들어주실 수 있나요</div>
+                  <div style="font-size:12px;color:#606060;margin-top:3px;">익명 · 1시간 전 · 💬 12</div>
+                </div>
+              </div>
+
+              <div style="display:flex;align-items:center;gap:12px;padding:14px 16px;border-bottom:1px solid #f2f2f2;cursor:pointer;" onmouseover="this.style.background='#f9f9f9'" onmouseout="this.style.background=''">
+                <div style="width:40px;height:40px;border-radius:8px;background:#fff0f3;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">📊</div>
+                <div style="flex:1;min-width:0;">
+                  <div style="font-size:14px;font-weight:500;color:#0f0f0f;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">엑셀 중복 데이터 자동 삭제 매크로 부탁드립니다</div>
+                  <div style="font-size:12px;color:#606060;margin-top:3px;">user123 · 3시간 전 · 💬 3</div>
+                </div>
+              </div>
+
+              <div style="display:flex;align-items:center;gap:12px;padding:14px 16px;border-bottom:1px solid #f2f2f2;cursor:pointer;" onmouseover="this.style.background='#f9f9f9'" onmouseout="this.style.background=''">
+                <div style="width:40px;height:40px;border-radius:8px;background:#fff0f3;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">🌐</div>
+                <div style="flex:1;min-width:0;">
+                  <div style="font-size:14px;font-weight:500;color:#0f0f0f;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">웹사이트 이미지 일괄 다운로드 툴 요청드려요</div>
+                  <div style="font-size:12px;color:#606060;margin-top:3px;">김철수 · 어제 · 💬 8</div>
+                </div>
+              </div>
+
+              <div style="display:flex;align-items:center;gap:12px;padding:14px 16px;cursor:pointer;" onmouseover="this.style.background='#f9f9f9'" onmouseout="this.style.background=''">
+                <div style="width:40px;height:40px;border-radius:8px;background:#fff0f3;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">📄</div>
+                <div style="flex:1;min-width:0;">
+                  <div style="font-size:14px;font-weight:500;color:#0f0f0f;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">PDF 여러 파일 합치는 간단한 프로그램 만들어주세요</div>
+                  <div style="font-size:12px;color:#606060;margin-top:3px;">lee_dev · 2일 전 · 💬 17</div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="section-label">
+            💬 자유게시판
+            <a href="#">전체보기 ›</a>
+          </div>
+          <div style="background:#fff;border:1px solid #e5e5e5;border-radius:12px;overflow:hidden;">
+
+            <div style="display:flex;align-items:center;gap:12px;padding:14px 16px;border-bottom:1px solid #f2f2f2;cursor:pointer;" onmouseover="this.style.background='#f9f9f9'" onmouseout="this.style.background=''">
+              <div style="width:40px;height:40px;border-radius:8px;background:#e8f0ff;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">💡</div>
+              <div style="flex:1;min-width:0;">
+                <div style="font-size:14px;font-weight:500;color:#0f0f0f;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">ClipBoard++ 쓰고나서 진짜 생산성 올랐어요 후기</div>
+                <div style="font-size:12px;color:#606060;margin-top:3px;">개발자K · 30분 전 · 💬 9</div>
+              </div>
+            </div>
+
+            <div style="display:flex;align-items:center;gap:12px;padding:14px 16px;border-bottom:1px solid #f2f2f2;cursor:pointer;" onmouseover="this.style.background='#f9f9f9'" onmouseout="this.style.background=''">
+              <div style="width:40px;height:40px;border-radius:8px;background:#e8f0ff;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">🎉</div>
+              <div style="flex:1;min-width:0;">
+                <div style="font-size:14px;font-weight:500;color:#0f0f0f;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">이런 사이트 너무 필요했어요. 감사합니다 ㅠㅠ</div>
+                <div style="font-size:12px;color:#606060;margin-top:3px;">newbie_j · 2시간 전 · 💬 6</div>
+              </div>
+            </div>
+
+            <div style="display:flex;align-items:center;gap:12px;padding:14px 16px;border-bottom:1px solid #f2f2f2;cursor:pointer;" onmouseover="this.style.background='#f9f9f9'" onmouseout="this.style.background=''">
+              <div style="width:40px;height:40px;border-radius:8px;background:#e8f0ff;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">❓</div>
+              <div style="flex:1;min-width:0;">
+                <div style="font-size:14px;font-weight:500;color:#0f0f0f;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">FocusTimer Windows 11에서 안켜지는 분 있나요?</div>
+                <div style="font-size:12px;color:#606060;margin-top:3px;">win11user · 5시간 전 · 💬 4</div>
+              </div>
+            </div>
+
+            <div style="display:flex;align-items:center;gap:12px;padding:14px 16px;border-bottom:1px solid #f2f2f2;cursor:pointer;" onmouseover="this.style.background='#f9f9f9'" onmouseout="this.style.background=''">
+              <div style="width:40px;height:40px;border-radius:8px;background:#e8f0ff;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">🤔</div>
+              <div style="flex:1;min-width:0;">
+                <div style="font-size:14px;font-weight:500;color:#0f0f0f;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">프로그래머 아닌데 여기서 배우면서 만들 수 있나요?</div>
+                <div style="font-size:12px;color:#606060;margin-top:3px;">궁금해요 · 어제 · 💬 11</div>
+              </div>
+            </div>
+
+            <div style="display:flex;align-items:center;gap:12px;padding:14px 16px;cursor:pointer;" onmouseover="this.style.background='#f9f9f9'" onmouseout="this.style.background=''">
+              <div style="width:40px;height:40px;border-radius:8px;background:#e8f0ff;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">📂</div>
+              <div style="flex:1;min-width:0;">
+                <div style="font-size:14px;font-weight:500;color:#0f0f0f;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">PassVault 소스코드 공개 예정 있나요?</div>
+                <div style="font-size:12px;color:#606060;margin-top:3px;">opensource_fan · 2일 전 · 💬 7</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <footer>
+    &copy; 2026 Maddit &nbsp;·&nbsp; 소프트웨어 공유 커뮤니티 &nbsp;·&nbsp; 문의: admin@maddit.kr
+  </footer>
+
+</body>
+</html>

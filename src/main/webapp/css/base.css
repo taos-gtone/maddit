@@ -1,0 +1,63 @@
+/* ============================================
+   BASE — 전역 초기화 및 공통 변수
+============================================ */
+:root {
+  --accent:    #e94560;
+  --accent-dk: #c73652;
+  --blue:      #065fd4;
+  --text-1:    #0f0f0f;
+  --text-2:    #606060;
+  --text-3:    #909090;
+  --bg:        #f9f9f9;
+  --surface:   #ffffff;
+  --border:    #e5e5e5;
+  --radius:    12px;
+  --sidebar-w: 240px;
+  --header-h:  56px;
+  --shadow-sm: 0 1px 4px rgba(0,0,0,.08);
+  --shadow-md: 0 4px 16px rgba(0,0,0,.12);
+  --transition: 0.18s ease;
+}
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+html { font-size: 16px; scroll-behavior: smooth; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+  background: var(--bg);
+  color: var(--text-1);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: inherit; text-decoration: none; }
+button { font-family: inherit; cursor: pointer; }
+img { max-width: 100%; display: block; }
+ul, ol { list-style: none; }
+
+/* 페이지 로딩 바 */
+#pg-bar {
+  position: fixed;
+  top: 0; left: 0;
+  width: 0%; height: 3px;
+  background: var(--accent);
+  z-index: 9999;
+  opacity: 0;
+  border-radius: 0 2px 2px 0;
+  transition: width 0.3s ease, opacity 0.3s ease;
+}
+
+/* 공통 */
+.view-all {
+  font-size: 13px;
+  color: var(--text-2);
+  transition: color var(--transition);
+}
+.view-all:hover { color: var(--accent); }
+
+.section-divider {
+  height: 1px;
+  background: var(--border);
+  margin: 8px 0 32px;
+}

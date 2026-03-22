@@ -7,11 +7,6 @@
 
 <!-- ===== 최신 프로그램 ===== -->
 <section class="prog-section">
-  <div class="prog-section-header">
-    <h2 class="prog-section-title"><span class="section-icon">🆕</span> 최신 프로그램</h2>
-    <a href="<%= ctx %>/program/list?sort=new" class="view-all">전체보기 ›</a>
-  </div>
-
   <div class="prog-grid">
     <% if (latestList != null) {
          for (int i = 0; i < latestList.size(); i++) {

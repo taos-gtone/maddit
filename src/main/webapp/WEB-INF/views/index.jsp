@@ -26,19 +26,21 @@
       <button class="chip">이미지 편집</button>
       <button class="chip">개발도구</button>
       <button class="chip">파일관리</button>
-      <button class="chip">무료</button>
-      <button class="chip">오픈소스</button>
-      <button class="chip">Windows</button>
-      <button class="chip">Mac</button>
     </div>
 
     <div class="content-inner">
 
-      <%@ include file="/WEB-INF/views/home/latest.jsp" %>
+      <!-- 정렬 버튼 -->
+      <div class="sort-bar">
+        <button class="sort-btn" id="btn-popular" onclick="setSort('popular')">인기순</button>
+        <button class="sort-btn" id="btn-latest"  onclick="setSort('latest')">최신순</button>
+        <a href="${pageContext.request.contextPath}/program/list" class="sort-view-all">전체보기 ›</a>
+      </div>
 
-      <div class="section-divider"></div>
-
-      <%@ include file="/WEB-INF/views/home/popular.jsp" %>
+      <!-- 프로그램 그리드 (인기순/최신순 공통) -->
+      <div id="prog-wrap">
+        <%@ include file="/WEB-INF/views/home/popular.jsp" %>
+      </div>
 
       <div class="section-divider"></div>
 

@@ -69,13 +69,13 @@
   .signup-btn span { display: none; }
 }
 
-/* ── 480px 이하: 1컬럼 ── */
+/* ── 480px 이하: 2컬럼 유지 ── */
 @media (max-width: 480px) {
-  .prog-grid { grid-template-columns: repeat(1, 1fr); }
+  .prog-grid { grid-template-columns: repeat(2, 1fr); }
 
   /* 썸네일 높이 줄이기 */
   .prog-thumb { aspect-ratio: 16 / 7; }
-  .thumb-icon { font-size: 28px; }
+  .thumb-icon { font-size: 24px; }
 
   /* 썸네일 패딩 */
 }

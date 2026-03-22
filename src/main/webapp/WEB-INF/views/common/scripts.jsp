@@ -56,6 +56,33 @@
   });
 })();
 
+/* ── 인기순 / 최신순 정렬 토글 ── */
+function setSort(mode) {
+  document.getElementById('btn-popular').classList.toggle('active', mode === 'popular');
+  document.getElementById('btn-latest').classList.toggle('active',  mode === 'latest');
+
+  var grid = document.querySelector('#prog-wrap .prog-grid');
+  if (!grid) return;
+
+  var cards = Array.from(grid.querySelectorAll('.prog-card'));
+  if (mode === 'popular') {
+    cards.sort(function(a, b) {
+      return parseInt(b.dataset.dl || 0) - parseInt(a.dataset.dl || 0);
+    });
+  } else {
+    cards.sort(function(a, b) {
+      return (b.dataset.date || '').localeCompare(a.dataset.date || '');
+    });
+  }
+
+  cards.forEach(function(c) { grid.appendChild(c); });
+}
+(function() {
+  if (document.getElementById('prog-wrap')) {
+    setSort(Math.random() < 0.5 ? 'popular' : 'latest');
+  }
+})();
+
 /* ── 카테고리 칩 활성화 ── */
 document.querySelectorAll('.chip').forEach(function(chip) {
   chip.addEventListener('click', function() {
@@ -63,6 +90,25 @@ document.querySelectorAll('.chip').forEach(function(chip) {
     chip.classList.add('active');
   });
 });
+
+/* ── 사이드바 트리 메뉴 토글 ── */
+function toggleTree(parentEl) {
+  var childrenId = parentEl.id + 'Children';
+  var iconId     = parentEl.id + 'Icon';
+  var children   = document.getElementById(childrenId);
+  var icon       = document.getElementById(iconId);
+  if (!children) return;
+  var isOpen = children.classList.contains('open');
+  if (isOpen) {
+    children.classList.remove('open');
+    parentEl.classList.add('collapsed');
+    if (icon) icon.textContent = '+';
+  } else {
+    children.classList.add('open');
+    parentEl.classList.remove('collapsed');
+    if (icon) icon.textContent = '−';
+  }
+}
 
 /* ── 현재 경로 기준 사이드바 + 하단 네비 활성화 ── */
 (function() {

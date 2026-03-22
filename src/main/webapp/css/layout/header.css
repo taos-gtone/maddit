@@ -73,7 +73,7 @@
   border: 1px solid #ccc;
   border-radius: 40px;
   overflow: hidden;
-  background: #f8f8f8;
+  background: #fff;
   transition: border-color var(--transition), box-shadow var(--transition);
 }
 .search-form:focus-within {
@@ -94,7 +94,7 @@
   width: 64px;
   border: none;
   border-left: 1px solid #d3d3d3;
-  background: #f8f8f8;
+  background: #fff;
   cursor: pointer;
   font-size: 18px;
   color: #606060;
@@ -147,6 +147,22 @@
   border-radius: 50%;
   border: 2px solid #fff;
 }
+
+.login-btn {
+  display: flex; align-items: center; gap: 5px;
+  padding: 0 14px;
+  height: 36px;
+  border: 1px solid #d3d3d3;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-1);
+  background: #fff;
+  cursor: pointer;
+  transition: background var(--transition);
+  text-decoration: none;
+}
+.login-btn:hover { background: #f2f2f2; }
 
 .signup-btn {
   display: flex; align-items: center; gap: 6px;
@@ -222,6 +238,77 @@
   background: var(--border);
   margin: 8px 16px;
 }
+
+/* ── Tree menu ── */
+.snav-tree-parent {
+  cursor: pointer;
+  user-select: none;
+  position: relative;
+}
+
+/* +/- 토글 아이콘 */
+.tree-toggle-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  border: 1.5px solid #bbb;
+  border-radius: 3px;
+  background: #fff;
+  color: #555;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1;
+  flex-shrink: 0;
+  margin-left: auto;
+  transition: border-color 0.15s, color 0.15s;
+}
+.snav-tree-parent:hover .tree-toggle-icon {
+  border-color: #888;
+  color: #222;
+}
+
+.snav-tree-children {
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.25s ease;
+  position: relative;
+}
+.snav-tree-children.open {
+  max-height: 400px;
+}
+
+.snav-child {
+  position: relative;
+  padding-left: 44px !important;
+  font-size: 13px;
+  color: var(--text-1);
+}
+
+/* ├ 모양: 세로선(위→중간) + 가로선 */
+.snav-child::before {
+  content: '';
+  position: absolute;
+  left: 20px;
+  top: 0;
+  width: 12px;
+  height: 50%;
+  border-left: 1.5px solid #555;
+  border-bottom: 1.5px solid #555;
+}
+
+/* 비마지막 항목: 세로선을 중간→아래까지 이어서 ├ 완성 */
+.snav-child:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  height: 50%;
+  border-left: 1.5px solid #555;
+}
+
+.snav-child:hover { background: #f2f2f2; }
 
 /* ── Page wrapper (sidebar 오프셋) ── */
 .page-wrapper {

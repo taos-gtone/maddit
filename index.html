@@ -273,10 +273,31 @@
     }
     .section-label a:hover { color: #065fd4; }
 
+    /* Sort bar */
+    .sort-bar {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .sort-btn {
+      padding: 8px 18px;
+      border-radius: 20px;
+      border: 1.5px solid #e5e5e5;
+      background: #fff;
+      font-size: 14px;
+      font-weight: 600;
+      color: #606060;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .sort-btn:hover { border-color: #0f0f0f; color: #0f0f0f; }
+    .sort-btn.active { background: #0f0f0f; color: #fff; border-color: #0f0f0f; }
+
     /* Program grid */
     .prog-grid {
       display: grid;
-      grid-template-columns: repeat(5, 1fr);
+      grid-template-columns: repeat(4, 1fr);
       gap: 16px 12px;
       margin-bottom: 40px;
     }
@@ -517,173 +538,14 @@
 
     <div class="content">
 
-      <!-- 최신 프로그램 -->
-      <div class="section-label">
-        🆕 최신 프로그램
-        <a href="#">전체보기 ›</a>
-      </div>
-      <div class="prog-grid">
-
-        <div class="prog-card">
-          <div class="prog-thumb" style="background:linear-gradient(135deg,#667eea,#764ba2)">
-            📊
-            <span class="prog-badge new">NEW</span>
-          </div>
-          <div class="prog-meta">
-            <div class="prog-avatar" style="background:#e8e8ff">📊</div>
-            <div class="prog-info">
-              <div class="prog-title">DataViz Pro — 엑셀 데이터 시각화 툴</div>
-              <div class="prog-dev">DataLab Studio</div>
-              <div class="prog-stats">⬇ 1,240 · 1일 전</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="prog-card">
-          <div class="prog-thumb" style="background:linear-gradient(135deg,#f093fb,#f5576c)">
-            🎨
-            <span class="prog-badge new">NEW</span>
-          </div>
-          <div class="prog-meta">
-            <div class="prog-avatar" style="background:#fde8f5">🎨</div>
-            <div class="prog-info">
-              <div class="prog-title">ColorPicker X — 화면 색상 추출기</div>
-              <div class="prog-dev">PixelTools</div>
-              <div class="prog-stats">⬇ 892 · 2일 전</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="prog-card">
-          <div class="prog-thumb" style="background:linear-gradient(135deg,#4facfe,#00f2fe)">
-            🖼️
-          </div>
-          <div class="prog-meta">
-            <div class="prog-avatar" style="background:#e0f4ff">🖼️</div>
-            <div class="prog-info">
-              <div class="prog-title">ImageBatch — 이미지 일괄 변환 도구</div>
-              <div class="prog-dev">ImgCraft</div>
-              <div class="prog-stats">⬇ 763 · 3일 전</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="prog-card">
-          <div class="prog-thumb" style="background:linear-gradient(135deg,#11998e,#38ef7d)">
-            📝
-          </div>
-          <div class="prog-meta">
-            <div class="prog-avatar" style="background:#e0fff0">📝</div>
-            <div class="prog-info">
-              <div class="prog-title">MarkPad — 마크다운 실시간 메모장</div>
-              <div class="prog-dev">NoteForge</div>
-              <div class="prog-stats">⬇ 521 · 4일 전</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="prog-card">
-          <div class="prog-thumb" style="background:linear-gradient(135deg,#f7971e,#ffd200)">
-            🔔
-          </div>
-          <div class="prog-meta">
-            <div class="prog-avatar" style="background:#fff8e0">🔔</div>
-            <div class="prog-info">
-              <div class="prog-title">NotiMate — 윈도우 스케줄 알림 앱</div>
-              <div class="prog-dev">RemindLab</div>
-              <div class="prog-stats">⬇ 408 · 5일 전</div>
-            </div>
-          </div>
-        </div>
-
+      <!-- 정렬 버튼 -->
+      <div class="sort-bar">
+        <button class="sort-btn" id="btn-popular" onclick="setSort('popular')">🔥 인기순</button>
+        <button class="sort-btn" id="btn-latest" onclick="setSort('latest')">🆕 최신순</button>
       </div>
 
-      <div class="section-divider"></div>
-
-      <!-- 인기 프로그램 -->
-      <div class="section-label">
-        🔥 인기 프로그램
-        <a href="#">전체보기 ›</a>
-      </div>
-      <div class="prog-grid">
-
-        <div class="prog-card">
-          <div class="prog-thumb" style="background:linear-gradient(135deg,#4facfe,#00f2fe)">
-            📋
-            <span class="rank-badge r1">#1</span>
-            <span class="prog-badge hot">HOT</span>
-          </div>
-          <div class="prog-meta">
-            <div class="prog-avatar" style="background:#e0f4ff">📋</div>
-            <div class="prog-info">
-              <div class="prog-title">ClipBoard++ — 클립보드 히스토리 관리</div>
-              <div class="prog-dev">DevUtils</div>
-              <div class="prog-stats">⬇ 5,601 · 생산성</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="prog-card">
-          <div class="prog-thumb" style="background:linear-gradient(135deg,#2c3e50,#4ca1af)">
-            🔐
-            <span class="rank-badge r2">#2</span>
-          </div>
-          <div class="prog-meta">
-            <div class="prog-avatar" style="background:#e8f0f4">🔐</div>
-            <div class="prog-info">
-              <div class="prog-title">PassVault — 로컬 암호화 비밀번호 관리</div>
-              <div class="prog-dev">SecureSoft</div>
-              <div class="prog-stats">⬇ 4,330 · 보안</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="prog-card">
-          <div class="prog-thumb" style="background:linear-gradient(135deg,#11998e,#38ef7d)">
-            🗂️
-            <span class="rank-badge r3">#3</span>
-          </div>
-          <div class="prog-meta">
-            <div class="prog-avatar" style="background:#e0fff4">🗂️</div>
-            <div class="prog-info">
-              <div class="prog-title">FileOrganizer — 폴더 자동 정리 유틸리티</div>
-              <div class="prog-dev">FileMaster</div>
-              <div class="prog-stats">⬇ 3,820 · 파일관리</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="prog-card">
-          <div class="prog-thumb" style="background:linear-gradient(135deg,#f7971e,#ffd200)">
-            ⏱️
-            <span class="rank-badge">#4</span>
-          </div>
-          <div class="prog-meta">
-            <div class="prog-avatar" style="background:#fff8e0">⏱️</div>
-            <div class="prog-info">
-              <div class="prog-title">FocusTimer — 포모도로 집중 타이머 + 통계</div>
-              <div class="prog-dev">ProductivityHub</div>
-              <div class="prog-stats">⬇ 2,110 · 생산성</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="prog-card">
-          <div class="prog-thumb" style="background:linear-gradient(135deg,#667eea,#764ba2)">
-            📊
-            <span class="rank-badge">#5</span>
-          </div>
-          <div class="prog-meta">
-            <div class="prog-avatar" style="background:#e8e8ff">📊</div>
-            <div class="prog-info">
-              <div class="prog-title">DataViz Pro — 엑셀 데이터 시각화 툴</div>
-              <div class="prog-dev">DataLab Studio</div>
-              <div class="prog-stats">⬇ 1,240 · 데이터</div>
-            </div>
-          </div>
-        </div>
-
-      </div>
+      <!-- 프로그램 그리드 (JS로 렌더링) -->
+      <div class="prog-grid" id="prog-grid"></div>
 
       <div class="section-divider"></div>
 
@@ -801,5 +663,68 @@
     &copy; 2026 Maddit &nbsp;·&nbsp; 소프트웨어 공유 커뮤니티 &nbsp;·&nbsp; 문의: admin@maddit.kr
   </footer>
 
+
+<script>
+const programs = {
+  popular: [
+    { icon:'📋', gradient:'linear-gradient(135deg,#4facfe,#00f2fe)', avatarBg:'#e0f4ff', title:'ClipBoard++ — 클립보드 히스토리 관리', dev:'DevUtils', stats:'⬇ 5,601 · 생산성', badge:'HOT', rank:'#1', rankClass:'r1' },
+    { icon:'🔐', gradient:'linear-gradient(135deg,#2c3e50,#4ca1af)', avatarBg:'#e8f0f4', title:'PassVault — 로컬 암호화 비밀번호 관리', dev:'SecureSoft', stats:'⬇ 4,330 · 보안', rank:'#2', rankClass:'r2' },
+    { icon:'🗂️', gradient:'linear-gradient(135deg,#11998e,#38ef7d)', avatarBg:'#e0fff4', title:'FileOrganizer — 폴더 자동 정리 유틸리티', dev:'FileMaster', stats:'⬇ 3,820 · 파일관리', rank:'#3', rankClass:'r3' },
+    { icon:'⏱️', gradient:'linear-gradient(135deg,#f7971e,#ffd200)', avatarBg:'#fff8e0', title:'FocusTimer — 포모도로 집중 타이머 + 통계', dev:'ProductivityHub', stats:'⬇ 2,110 · 생산성', rank:'#4' },
+    { icon:'📊', gradient:'linear-gradient(135deg,#667eea,#764ba2)', avatarBg:'#e8e8ff', title:'DataViz Pro — 엑셀 데이터 시각화 툴', dev:'DataLab Studio', stats:'⬇ 1,850 · 데이터', rank:'#5' },
+    { icon:'📝', gradient:'linear-gradient(135deg,#11998e,#38ef7d)', avatarBg:'#e0fff0', title:'MarkPad — 마크다운 실시간 메모장', dev:'NoteForge', stats:'⬇ 1,720 · 메모', rank:'#6' },
+    { icon:'🎨', gradient:'linear-gradient(135deg,#f093fb,#f5576c)', avatarBg:'#fde8f5', title:'ColorPicker X — 화면 색상 추출기', dev:'PixelTools', stats:'⬇ 1,560 · 디자인', rank:'#7' },
+    { icon:'🖼️', gradient:'linear-gradient(135deg,#4facfe,#00f2fe)', avatarBg:'#e0f4ff', title:'ImageBatch — 이미지 일괄 변환 도구', dev:'ImgCraft', stats:'⬇ 1,340 · 이미지', rank:'#8' },
+    { icon:'🔔', gradient:'linear-gradient(135deg,#f7971e,#ffd200)', avatarBg:'#fff8e0', title:'NotiMate — 윈도우 스케줄 알림 앱', dev:'RemindLab', stats:'⬇ 1,180 · 알림', rank:'#9' },
+    { icon:'🚀', gradient:'linear-gradient(135deg,#fa709a,#fee140)', avatarBg:'#fff0e0', title:'QuickLauncher — 키보드 앱 빠른 실행', dev:'SpeedTools', stats:'⬇ 980 · 생산성', rank:'#10' },
+    { icon:'💾', gradient:'linear-gradient(135deg,#30cfd0,#330867)', avatarBg:'#e0f8ff', title:'DiskMap — 디스크 사용량 시각화', dev:'StoreSoft', stats:'⬇ 870 · 파일관리', rank:'#11' },
+    { icon:'📸', gradient:'linear-gradient(135deg,#fd746c,#ff9068)', avatarBg:'#ffe8e8', title:'WinSnap+ — 화면 캡처 + 주석 도구', dev:'CaptureLab', stats:'⬇ 750 · 유틸리티', rank:'#12' },
+  ],
+  latest: [
+    { icon:'📊', gradient:'linear-gradient(135deg,#667eea,#764ba2)', avatarBg:'#e8e8ff', title:'DataViz Pro — 엑셀 데이터 시각화 툴', dev:'DataLab Studio', stats:'⬇ 1,240 · 1일 전', badge:'NEW' },
+    { icon:'🎨', gradient:'linear-gradient(135deg,#f093fb,#f5576c)', avatarBg:'#fde8f5', title:'ColorPicker X — 화면 색상 추출기', dev:'PixelTools', stats:'⬇ 892 · 2일 전', badge:'NEW' },
+    { icon:'🖼️', gradient:'linear-gradient(135deg,#4facfe,#00f2fe)', avatarBg:'#e0f4ff', title:'ImageBatch — 이미지 일괄 변환 도구', dev:'ImgCraft', stats:'⬇ 763 · 3일 전' },
+    { icon:'📝', gradient:'linear-gradient(135deg,#11998e,#38ef7d)', avatarBg:'#e0fff0', title:'MarkPad — 마크다운 실시간 메모장', dev:'NoteForge', stats:'⬇ 521 · 4일 전' },
+    { icon:'🔔', gradient:'linear-gradient(135deg,#f7971e,#ffd200)', avatarBg:'#fff8e0', title:'NotiMate — 윈도우 스케줄 알림 앱', dev:'RemindLab', stats:'⬇ 408 · 5일 전' },
+    { icon:'🚀', gradient:'linear-gradient(135deg,#fa709a,#fee140)', avatarBg:'#fff0e0', title:'QuickLauncher — 키보드 앱 빠른 실행', dev:'SpeedTools', stats:'⬇ 312 · 6일 전' },
+    { icon:'📸', gradient:'linear-gradient(135deg,#fd746c,#ff9068)', avatarBg:'#ffe8e8', title:'WinSnap+ — 화면 캡처 + 주석 도구', dev:'CaptureLab', stats:'⬇ 287 · 7일 전' },
+    { icon:'💾', gradient:'linear-gradient(135deg,#30cfd0,#330867)', avatarBg:'#e0f8ff', title:'DiskMap — 디스크 사용량 시각화', dev:'StoreSoft', stats:'⬇ 234 · 8일 전' },
+    { icon:'🔐', gradient:'linear-gradient(135deg,#2c3e50,#4ca1af)', avatarBg:'#e8f0f4', title:'PassVault — 로컬 암호화 비밀번호 관리', dev:'SecureSoft', stats:'⬇ 198 · 9일 전', badge:'NEW' },
+    { icon:'📋', gradient:'linear-gradient(135deg,#4facfe,#00f2fe)', avatarBg:'#e0f4ff', title:'ClipBoard++ — 클립보드 히스토리 관리', dev:'DevUtils', stats:'⬇ 175 · 10일 전' },
+    { icon:'⏱️', gradient:'linear-gradient(135deg,#f7971e,#ffd200)', avatarBg:'#fff8e0', title:'FocusTimer — 포모도로 집중 타이머 + 통계', dev:'ProductivityHub', stats:'⬇ 142 · 12일 전' },
+    { icon:'🗂️', gradient:'linear-gradient(135deg,#11998e,#38ef7d)', avatarBg:'#e0fff4', title:'FileOrganizer — 폴더 자동 정리 유틸리티', dev:'FileMaster', stats:'⬇ 118 · 14일 전' },
+  ]
+};
+
+function setSort(mode) {
+  document.getElementById('btn-popular').classList.toggle('active', mode === 'popular');
+  document.getElementById('btn-latest').classList.toggle('active', mode === 'latest');
+
+  const grid = document.getElementById('prog-grid');
+  grid.innerHTML = programs[mode].map(p => {
+    const rankBadge = p.rank ? `<span class="rank-badge ${p.rankClass || ''}">${p.rank}</span>` : '';
+    const progBadge = p.badge ? `<span class="prog-badge ${p.badge === 'NEW' ? 'new' : 'hot'}">${p.badge}</span>` : '';
+    return `
+      <div class="prog-card">
+        <div class="prog-thumb" style="background:${p.gradient}">
+          ${p.icon}
+          ${rankBadge}
+          ${progBadge}
+        </div>
+        <div class="prog-meta">
+          <div class="prog-avatar" style="background:${p.avatarBg}">${p.icon}</div>
+          <div class="prog-info">
+            <div class="prog-title">${p.title}</div>
+            <div class="prog-dev">${p.dev}</div>
+            <div class="prog-stats">${p.stats}</div>
+          </div>
+        </div>
+      </div>`;
+  }).join('');
+}
+
+// 랜덤으로 초기 정렬 방식 선택
+setSort(Math.random() < 0.5 ? 'popular' : 'latest');
+</script>
 </body>
 </html>

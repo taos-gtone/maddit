@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.maddit.mapper.MemberMapper">
+
+    <!-- 이메일 중복 확인 -->
+    <select id="countByEmail" resultType="int">
+        SELECT COUNT(*) FROM MEM_JOIN_INFO WHERE email = #{email}
+    </select>
+
+    <!-- 닉네임 중복 확인 -->
+    <select id="countByNickname" resultType="int">
+        SELECT COUNT(*) FROM MEM_JOIN_INFO WHERE nickname = #{nickname}
+    </select>
+
+    <!-- 닉네임 금지어 매칭 검사
+         match_type_cd: E(정확히일치), C(포함) -->
+    <select id="countBannedNickname" resultType="int">
+        SELECT COUNT(*) FROM MEM_BANNED_NICKNAME
+        WHERE (match_type_cd = 'E' AND banned_word = #{nickname})
+           OR (match_type_cd = 'C' AND INSTR(#{nickname}, banned_word) > 0)
+    </select>
+
+    <!-- 회원 가입 INSERT -->
+    <insert id="insertMember" parameterType="MemberVO" useGeneratedKeys="true" keyProperty="memberNo">
+        INSERT INTO MEM_JOIN_INFO (
+            email, user_pw, nickname,
+            reg_date, reg_login_typ_cd, reg_ip,
+            acct_sts_cd, mem_grade_cd
+        ) VALUES (
+            #{email}, #{userPw}, #{nickname},
+            #{regDate}, #{regLoginTypCd}, #{regIp},
+            #{acctStsCd}, #{memGradeCd}
+        )
+    </insert>
+
+    <!-- 이메일로 회원 조회 (로그인용) -->
+    <select id="findByEmail" resultType="MemberVO">
+        SELECT member_no, email, user_pw, nickname, acct_sts_cd
+        FROM MEM_JOIN_INFO
+        WHERE email = #{email}
+    </select>
+
+    <!-- 최종 로그인 시각 갱신 -->
+    <update id="updateLastLoginAt">
+        UPDATE MEM_JOIN_INFO
+        SET last_login_at = NOW()
+        WHERE member_no = #{memberNo}
+    </update>
+
+    <!-- 로그인 이력 INSERT (성공/실패 공통) -->
+    <insert id="insertLoginHist" parameterType="LoginHistVO">
+        INSERT INTO MEM_LOGIN_HIST (
+            member_no, email, reg_login_typ_cd, login_rslt_cd, fail_rsn_cd,
+            login_ip, session_id, user_agent
+        ) VALUES (
+            #{memberNo, jdbcType=BIGINT},
+            #{email},
+            #{regLoginTypCd},
+            #{loginRsltCd},
+            #{failRsnCd, jdbcType=VARCHAR},
+            #{loginIp,   jdbcType=VARCHAR},
+            #{sessionId, jdbcType=VARCHAR},
+            #{userAgent, jdbcType=VARCHAR}
+        )
+    </insert>
+
+</mapper>

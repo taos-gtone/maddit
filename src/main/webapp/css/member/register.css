@@ -1,0 +1,340 @@
+/* ============================================
+   회원가입 페이지 - Maddit 디자인 시스템 기반
+============================================ */
+
+/* ── 페이지 래퍼 ── */
+.register-wrap {
+  margin-left: var(--sidebar-w);
+  margin-top: var(--header-h);
+  min-height: calc(100vh - var(--header-h));
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 48px 20px 80px;
+  background: var(--bg);
+}
+
+/* ── 카드 컨테이너 ── */
+.register-card {
+  width: 100%;
+  max-width: 460px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+}
+
+/* ── 카드 헤더 ── */
+.register-card-header {
+  padding: 24px 32px 20px;
+  text-align: center;
+  border-bottom: 1px solid var(--border);
+}
+
+.register-title {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--text-1);
+  margin-bottom: 6px;
+}
+
+.register-subtitle {
+  font-size: 0.88rem;
+  color: var(--text-2);
+  font-weight: 400;
+}
+
+/* ── 카드 본문 ── */
+.register-card-body {
+  padding: 28px 32px 32px;
+}
+
+/* ── 폼 그룹 ── */
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-label {
+  display: block;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text-1);
+  margin-bottom: 6px;
+}
+
+.form-label .req {
+  color: var(--accent);
+  margin-left: 2px;
+}
+
+.form-input {
+  width: 100%;
+  padding: 11px 14px;
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  font-size: 0.95rem;
+  color: var(--text-1);
+  background: #fff;
+  transition: border-color var(--transition), box-shadow var(--transition);
+  font-family: inherit;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px rgba(6,95,212,.1);
+}
+
+.form-input::placeholder {
+  color: var(--text-3);
+}
+
+.form-input.is-ok    { border-color: #22c55e; }
+.form-input.is-error { border-color: var(--accent); }
+
+/* 유효성 힌트 */
+.form-hint {
+  font-size: 0.8rem;
+  color: var(--text-3);
+  margin-top: 5px;
+  min-height: 18px;
+}
+
+.form-hint.ok    { color: #22c55e; }
+.form-hint.error { color: var(--accent); }
+
+/* ── 입력 + 버튼 행 (중복확인) ── */
+.input-btn-row {
+  display: flex;
+  gap: 8px;
+}
+
+.input-btn-row .form-input {
+  flex: 1;
+  min-width: 0;
+}
+
+.btn-check {
+  flex-shrink: 0;
+  padding: 0 16px;
+  background: #f2f2f2;
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-1);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all var(--transition);
+}
+
+.btn-check:hover {
+  background: var(--blue);
+  border-color: var(--blue);
+  color: #fff;
+}
+
+.btn-check.verified {
+  background: #22c55e;
+  border-color: #22c55e;
+  color: #fff;
+}
+
+.btn-check:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ── 비밀번호 강도 바 ── */
+.pw-strength {
+  display: flex;
+  gap: 3px;
+  margin-top: 6px;
+}
+
+.strength-bar {
+  flex: 1;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--border);
+  transition: background 0.3s;
+}
+
+.strength-bar.weak   { background: var(--accent); }
+.strength-bar.mid    { background: #f59e0b; }
+.strength-bar.strong { background: #22c55e; }
+
+/* ── 가입 버튼 ── */
+.btn-register {
+  display: block;
+  width: 100%;
+  padding: 13px;
+  margin-top: 28px;
+  background: var(--blue);
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 700;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background var(--transition), transform var(--transition);
+}
+
+.btn-register:hover {
+  background: #0550b0;
+  transform: translateY(-1px);
+}
+
+.btn-register:disabled {
+  background: #b0c4de;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ── 하단 링크 ── */
+.register-footer {
+  text-align: center;
+  padding: 16px 32px 24px;
+  font-size: 0.85rem;
+  color: var(--text-2);
+}
+
+.register-footer a {
+  color: var(--blue);
+  font-weight: 600;
+  transition: color var(--transition);
+}
+
+.register-footer a:hover {
+  color: #0550b0;
+  text-decoration: underline;
+}
+
+/* ── 가입 완료 화면 ── */
+.register-complete {
+  text-align: center;
+  padding: 48px 32px;
+}
+
+.complete-check {
+  width: 72px;
+  height: 72px;
+  margin: 0 auto 20px;
+  background: #22c55e;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.complete-check svg {
+  width: 36px;
+  height: 36px;
+}
+
+.complete-title {
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: var(--text-1);
+  margin-bottom: 8px;
+}
+
+.complete-desc {
+  font-size: 0.9rem;
+  color: var(--text-2);
+  line-height: 1.7;
+  margin-bottom: 28px;
+}
+
+.complete-btns {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.btn-go-login {
+  display: inline-block;
+  padding: 12px 28px;
+  background: var(--blue);
+  color: #fff;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  transition: background var(--transition);
+}
+
+.btn-go-login:hover { background: #0550b0; }
+
+.btn-go-home {
+  display: inline-block;
+  padding: 12px 28px;
+  background: #fff;
+  color: var(--text-1);
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: border-color var(--transition), color var(--transition);
+}
+
+.btn-go-home:hover {
+  border-color: var(--blue);
+  color: var(--blue);
+}
+
+/* ══════════════════════════════════════════
+   반응형
+══════════════════════════════════════════ */
+
+@media (max-width: 960px) {
+  .register-wrap {
+    margin-left: 0;
+    padding: 32px 16px 80px;
+  }
+}
+
+@media (max-width: 480px) {
+  .register-wrap {
+    padding: 20px 12px 72px;
+  }
+
+  .register-card {
+    border-radius: 10px;
+  }
+
+  .register-card-header {
+    padding: 20px 20px 16px;
+  }
+
+  .register-title {
+    font-size: 1.2rem;
+  }
+
+  .register-card-body {
+    padding: 20px 20px 24px;
+  }
+
+  .form-input {
+    padding: 10px 12px;
+    font-size: 0.9rem;
+  }
+
+  .btn-check {
+    padding: 0 12px;
+    font-size: 0.78rem;
+  }
+
+  .btn-register {
+    padding: 12px;
+    font-size: 0.95rem;
+  }
+
+  .register-footer {
+    padding: 12px 20px 20px;
+  }
+
+  .complete-btns {
+    flex-direction: column;
+  }
+}

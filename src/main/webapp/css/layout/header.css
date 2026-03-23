@@ -179,6 +179,21 @@
 }
 .signup-btn:hover { background: #def1ff; }
 
+.logout-btn {
+  display: flex; align-items: center; gap: 5px;
+  padding: 0 14px;
+  height: 36px;
+  border: 1px solid #d3d3d3;
+  border-radius: 20px;
+  font-size: 14px; font-weight: 500;
+  color: var(--text-2);
+  background: #fff;
+  cursor: pointer;
+  transition: background var(--transition), color var(--transition);
+  text-decoration: none;
+}
+.logout-btn:hover { background: #f2f2f2; color: var(--accent); }
+
 /* ── Sidebar ── */
 .sidebar {
   position: fixed;

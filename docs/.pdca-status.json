@@ -1,9 +1,11 @@
 {
   "version": "2.0",
-  "lastUpdated": "2026-03-22T09:28:30.860Z",
+  "lastUpdated": "2026-03-23T01:12:49.771Z",
   "activeFeatures": [
     "vo",
-    "controller"
+    "controller",
+    "mapper",
+    "service"
   ],
   "primaryFeature": "vo",
   "features": {
@@ -16,9 +18,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-21T16:50:40.139Z",
-        "lastUpdated": "2026-03-21T16:50:40.139Z"
+        "lastUpdated": "2026-03-23T01:11:00.641Z"
       },
-      "lastFile": "/c/projects/maddit/src/main/java/com/maddit/vo/ProgramVO.java"
+      "lastFile": "c:\\projects\\maddit\\src\\main\\java\\com\\maddit\\vo\\LoginHistVO.java"
     },
     "controller": {
       "phase": "do",
@@ -29,9 +31,35 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-21T16:51:03.101Z",
-        "lastUpdated": "2026-03-22T09:28:30.859Z"
+        "lastUpdated": "2026-03-23T01:12:49.771Z"
       },
-      "lastFile": "c:\\projects\\maddit\\src\\main\\java\\com\\maddit\\controller\\HomeController.java"
+      "lastFile": "c:\\projects\\maddit\\src\\main\\java\\com\\maddit\\controller\\MemberController.java"
+    },
+    "mapper": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-03-23T00:39:37.289Z",
+        "lastUpdated": "2026-03-23T01:11:26.340Z"
+      },
+      "lastFile": "c:\\projects\\maddit\\src\\main\\java\\com\\maddit\\mapper\\MemberMapper.java"
+    },
+    "service": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-03-23T00:40:22.522Z",
+        "lastUpdated": "2026-03-23T01:12:14.474Z"
+      },
+      "lastFile": "c:\\projects\\maddit\\src\\main\\java\\com\\maddit\\service\\MemberServiceImpl.java"
     }
   },
   "pipeline": {
@@ -42,7 +70,7 @@
   "session": {
     "startedAt": "2026-03-21T05:02:14.489Z",
     "onboardingCompleted": false,
-    "lastActivity": "2026-03-22T09:28:30.860Z"
+    "lastActivity": "2026-03-23T01:12:49.771Z"
   },
   "history": [
     {
@@ -59,6 +87,78 @@
     },
     {
       "timestamp": "2026-03-22T09:28:30.859Z",
+      "feature": "controller",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-23T00:28:11.462Z",
+      "feature": "controller",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-23T00:39:18.742Z",
+      "feature": "vo",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-23T00:39:37.289Z",
+      "feature": "mapper",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-23T00:40:22.522Z",
+      "feature": "service",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-23T00:40:32.785Z",
+      "feature": "service",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-23T00:41:03.163Z",
+      "feature": "controller",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-23T01:11:00.641Z",
+      "feature": "vo",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-23T01:11:02.826Z",
+      "feature": "service",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-23T01:11:26.340Z",
+      "feature": "mapper",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-23T01:11:58.998Z",
+      "feature": "service",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-23T01:12:14.474Z",
+      "feature": "service",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-23T01:12:49.771Z",
       "feature": "controller",
       "phase": "do",
       "action": "updated"

@@ -32,6 +32,30 @@
   gap: 6px;
 }
 
+.board-panel-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-write {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #fff;
+  border: 1.5px solid #111;
+  border-radius: 6px;
+  padding: 3px 10px;
+  text-decoration: none;
+  background: var(--accent);
+  transition: background var(--transition), opacity var(--transition);
+}
+.btn-write:hover {
+  background: var(--accent-dk);
+}
+
 .board-list { list-style: none; }
 
 .board-item {

@@ -102,7 +102,7 @@
       <div class="snav-section-title">게시판</div>
       <a href="${pageContext.request.contextPath}/board/request" class="snav-item">
         <span class="snav-icon">✏️</span>
-        <span class="snav-label">만들어주세요</span>
+        <span class="snav-label">만들어 주세요</span>
       </a>
       <a href="${pageContext.request.contextPath}/board/free"    class="snav-item">
         <span class="snav-icon">💬</span>

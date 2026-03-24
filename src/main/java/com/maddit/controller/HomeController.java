@@ -1,6 +1,9 @@
 package com.maddit.controller;
 
+import com.maddit.service.BoardService;
+import com.maddit.vo.BoardPostVO;
 import com.maddit.vo.ProgramVO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,8 +14,17 @@ import java.util.List;
 @Controller
 public class HomeController {
 
+    @Autowired
+    private BoardService boardService;
+
     @GetMapping("/")
     public String home(Model model) {
+
+        // 게시판 최신 5건
+        List<BoardPostVO> requestPosts = boardService.getPostList("03", null, null, 0, 1, 5);
+        List<BoardPostVO> freePosts    = boardService.getPostList("01", null, null, 0, 1, 5);
+        model.addAttribute("requestPosts", requestPosts);
+        model.addAttribute("freePosts", freePosts);
 
         // 샘플 최신 프로그램 5개
         List<ProgramVO> latestList = new ArrayList<>();

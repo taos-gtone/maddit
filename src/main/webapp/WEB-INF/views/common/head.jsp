@@ -5,6 +5,9 @@
   <meta name="theme-color" content="#ffffff">
   <title>Maddit - 소프트웨어 쇼케이스</title>
   <meta name="description" content="무료 소프트웨어, 유틸리티, 생산성 도구를 찾고 공유하는 커뮤니티">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/css/base.css">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/css/layout/header.css">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/css/layout/footer.css">

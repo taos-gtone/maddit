@@ -1,0 +1,48 @@
+package com.maddit.mapper;
+
+import com.maddit.vo.AdminLoginHistVO;
+import com.maddit.vo.AdminLoginInfoVO;
+import com.maddit.vo.BoardPostVO;
+import com.maddit.vo.MemberVO;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
+
+@Mapper
+public interface AdminMapper {
+
+    /* ── 로그인 ── */
+    AdminLoginInfoVO selectAdminById(@Param("adminId") String adminId);
+    void updateLastLoginAt(@Param("adminId") String adminId);
+    void insertLoginHist(AdminLoginHistVO hist);
+    void updateAdminPassword(@Param("adminId") String adminId, @Param("adminPw") String adminPw);
+
+    /* ── 대시보드 통계 ── */
+    int selectTotalMemberCount();
+    int selectTodayPostCount();
+    int selectTotalPostCount();
+    int selectUnapprovedPostCount();
+
+    /* ── 게시판 관리 ── */
+    List<BoardPostVO> selectAdminBoardList(
+            @Param("boardGbnCd") String boardGbnCd,
+            @Param("searchType") String searchType,
+            @Param("searchKeyword") String searchKeyword,
+            @Param("offset") int offset, @Param("pageSize") int pageSize);
+
+    int selectAdminBoardCount(
+            @Param("boardGbnCd") String boardGbnCd,
+            @Param("searchType") String searchType,
+            @Param("searchKeyword") String searchKeyword);
+
+    void togglePostApprovalYn(@Param("postNo") long postNo);
+    void adminDeletePost(@Param("postNo") long postNo);
+
+    /* ── 회원 관리 ── */
+    List<MemberVO> selectMemberList(
+            @Param("searchKeyword") String searchKeyword,
+            @Param("offset") int offset, @Param("pageSize") int pageSize);
+
+    int selectMemberCount(@Param("searchKeyword") String searchKeyword);
+}

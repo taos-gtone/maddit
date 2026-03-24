@@ -98,10 +98,15 @@ public class MemberController {
     ═══════════════════════════════════════ */
 
     @GetMapping("/login")
-    public String loginForm(HttpServletRequest request) {
+    public String loginForm(@RequestParam(required = false) String redirect,
+                            HttpServletRequest request,
+                            org.springframework.ui.Model model) {
         HttpSession existing = request.getSession(false);
         if (existing != null && existing.getAttribute("loginUser") != null) {
             return "redirect:/";
+        }
+        if (redirect != null && !redirect.isEmpty()) {
+            model.addAttribute("redirect", redirect);
         }
         return "member/login";
     }

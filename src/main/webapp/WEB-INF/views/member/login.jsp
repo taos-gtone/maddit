@@ -83,6 +83,7 @@
 
 <script>
 var CTX = '${pageContext.request.contextPath}';
+var REDIRECT = '<%= request.getAttribute("redirect") != null ? request.getAttribute("redirect") : "" %>';
 
 /* ── 비밀번호 보기/숨기기 ── */
 (function() {
@@ -142,8 +143,7 @@ function handleLogin(e) {
   .then(function(res) { return res.json(); })
   .then(function(data) {
     if (data.success) {
-      // 로그인 성공 → 메인으로 이동
-      location.href = CTX + '/';
+      location.href = (REDIRECT && REDIRECT !== 'null') ? CTX + REDIRECT : CTX + '/';
     } else {
       showError(data.message || '로그인에 실패했습니다.');
       btn.disabled = false;

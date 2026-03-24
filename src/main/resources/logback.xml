@@ -9,5 +9,6 @@
         <appender-ref ref="STDOUT"/>
     </root>
     <logger name="com.maddit" level="DEBUG"/>
+    <logger name="SQL" level="DEBUG"/>
     <logger name="org.springframework.web" level="WARN"/>
 </configuration>

@@ -17,9 +17,6 @@
     <div class="prog-card" data-dl="<%= p.getDownloadCnt() %>" data-date="<%= p.getRegDate() %>" onclick="location.href='${pageContext.request.contextPath}/program/<%= p.getProgNo() %>'">
       <div class="prog-thumb" style="background:<%= p.getProgColor() %>">
         <span class="thumb-icon"><%= p.getProgIcon() %></span>
-        <% if (i == 0) { %>
-        <span class="thumb-badge badge-hot">HOT</span>
-        <% } %>
       </div>
       <div class="prog-meta">
         <div class="prog-avatar" style="background:<%= p.getProgColor() %>"><%= p.getProgIcon() %></div>
@@ -38,8 +35,6 @@
     <div class="prog-card" data-dl="5601" data-date="2026-03-22" onclick="">
       <div class="prog-thumb" style="background:linear-gradient(135deg,#4facfe,#00f2fe)">
         <span class="thumb-icon">📋</span>
-
-        <span class="thumb-badge badge-hot">HOT</span>
       </div>
       <div class="prog-meta">
         <div class="prog-avatar" style="background:#e0f4ff">📋</div>

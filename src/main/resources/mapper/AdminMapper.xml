@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.maddit.mapper.AdminMapper">
+
+    <!-- ════════════ 로그인 ════════════ -->
+
+    <select id="selectAdminById" resultType="AdminLoginInfoVO">
+        SELECT admin_id, admin_pw, last_login_at, create_ts, update_ts
+          FROM ADM_LOGIN_INFO
+         WHERE admin_id = #{adminId}
+    </select>
+
+    <update id="updateLastLoginAt">
+        UPDATE ADM_LOGIN_INFO SET last_login_at = NOW() WHERE admin_id = #{adminId}
+    </update>
+
+    <insert id="insertLoginHist">
+        INSERT INTO ADM_LOGIN_HIST (admin_id, login_rslt_cd, fail_rsn_cd, login_ip, user_agent)
+        VALUES (#{adminId}, #{loginRsltCd}, #{failRsnCd}, #{loginIp}, #{userAgent})
+    </insert>
+
+    <update id="updateAdminPassword">
+        UPDATE ADM_LOGIN_INFO SET admin_pw = #{adminPw}, update_ts = NOW()
+         WHERE admin_id = #{adminId}
+    </update>
+
+    <!-- ════════════ 대시보드 통계 ════════════ -->
+
+    <select id="selectTotalMemberCount" resultType="int">
+        SELECT COUNT(*) FROM MEM_JOIN_INFO
+    </select>
+
+    <select id="selectTodayPostCount" resultType="int">
+        SELECT COUNT(*) FROM BRD_POST_MST WHERE del_yn = 'N' AND DATE(create_ts) = CURDATE()
+    </select>
+
+    <select id="selectTotalPostCount" resultType="int">
+        SELECT COUNT(*) FROM BRD_POST_MST WHERE del_yn = 'N'
+    </select>
+
+    <select id="selectUnapprovedPostCount" resultType="int">
+        SELECT COUNT(*) FROM BRD_POST_MST WHERE del_yn = 'N' AND approval_yn = 'N'
+    </select>
+
+    <!-- ════════════ 게시판 관리 ════════════ -->
+
+    <select id="selectAdminBoardList" resultType="BoardPostVO">
+        SELECT p.post_no, p.board_gbn_cd, p.member_no, p.title,
+               p.view_cnt, p.like_cnt, p.dislike_cnt, p.comment_cnt,
+               p.approval_yn, p.del_yn, p.create_ts,
+               COALESCE(m.nickname, '익명') AS nickname
+          FROM BRD_POST_MST p
+          LEFT JOIN MEM_JOIN_INFO m ON m.member_no = p.member_no
+         WHERE p.del_yn = 'N'
+        <if test="boardGbnCd != null and boardGbnCd != ''">
+           AND p.board_gbn_cd = #{boardGbnCd}
+        </if>
+        <if test="searchKeyword != null and searchKeyword != ''">
+            <choose>
+                <when test="searchType == 'title'">
+                    AND p.title LIKE CONCAT('%', #{searchKeyword}, '%')
+                </when>
+                <when test="searchType == 'author'">
+                    AND m.nickname LIKE CONCAT('%', #{searchKeyword}, '%')
+                </when>
+                <otherwise>
+                    AND (p.title LIKE CONCAT('%', #{searchKeyword}, '%')
+                      OR m.nickname LIKE CONCAT('%', #{searchKeyword}, '%'))
+                </otherwise>
+            </choose>
+        </if>
+         ORDER BY p.post_no DESC
+         LIMIT #{pageSize} OFFSET #{offset}
+    </select>
+
+    <select id="selectAdminBoardCount" resultType="int">
+        SELECT COUNT(*)
+          FROM BRD_POST_MST p
+          LEFT JOIN MEM_JOIN_INFO m ON m.member_no = p.member_no
+         WHERE p.del_yn = 'N'
+        <if test="boardGbnCd != null and boardGbnCd != ''">
+           AND p.board_gbn_cd = #{boardGbnCd}
+        </if>
+        <if test="searchKeyword != null and searchKeyword != ''">
+            <choose>
+                <when test="searchType == 'title'">
+                    AND p.title LIKE CONCAT('%', #{searchKeyword}, '%')
+                </when>
+                <when test="searchType == 'author'">
+                    AND m.nickname LIKE CONCAT('%', #{searchKeyword}, '%')
+                </when>
+                <otherwise>
+                    AND (p.title LIKE CONCAT('%', #{searchKeyword}, '%')
+                      OR m.nickname LIKE CONCAT('%', #{searchKeyword}, '%'))
+                </otherwise>
+            </choose>
+        </if>
+    </select>
+
+    <update id="togglePostApprovalYn">
+        UPDATE BRD_POST_MST
+           SET approval_yn = IF(approval_yn = 'Y', 'N', 'Y'),
+               approval_at = IF(approval_yn = 'N', NOW(), NULL)
+         WHERE post_no = #{postNo}
+    </update>
+
+    <update id="adminDeletePost">
+        UPDATE BRD_POST_MST SET del_yn = 'Y', del_ts = NOW() WHERE post_no = #{postNo}
+    </update>
+
+    <!-- ════════════ 회원 관리 ════════════ -->
+
+    <select id="selectMemberList" resultType="MemberVO">
+        SELECT member_no, email, nickname, acct_sts_cd, last_login_at, create_ts
+          FROM MEM_JOIN_INFO
+         WHERE 1=1
+        <if test="searchKeyword != null and searchKeyword != ''">
+           AND (email LIKE CONCAT('%', #{searchKeyword}, '%')
+             OR nickname LIKE CONCAT('%', #{searchKeyword}, '%'))
+        </if>
+         ORDER BY member_no DESC
+         LIMIT #{pageSize} OFFSET #{offset}
+    </select>
+
+    <select id="selectMemberCount" resultType="int">
+        SELECT COUNT(*)
+          FROM MEM_JOIN_INFO
+         WHERE 1=1
+        <if test="searchKeyword != null and searchKeyword != ''">
+           AND (email LIKE CONCAT('%', #{searchKeyword}, '%')
+             OR nickname LIKE CONCAT('%', #{searchKeyword}, '%'))
+        </if>
+    </select>
+
+</mapper>

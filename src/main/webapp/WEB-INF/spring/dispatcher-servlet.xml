@@ -10,6 +10,17 @@
 
     <mvc:annotation-driven/>
     <context:component-scan base-package="com.maddit.controller"/>
+    <context:component-scan base-package="com.maddit.admin.controller"/>
+
+    <!-- 관리자 인증 인터셉터 -->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/maddit/admin/**"/>
+            <mvc:exclude-mapping path="/maddit/admin/login"/>
+            <mvc:exclude-mapping path="/css/**"/>
+            <bean class="com.maddit.admin.interceptor.AdminAuthInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
 
     <!-- JSP ViewResolver -->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">

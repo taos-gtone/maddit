@@ -10,4 +10,7 @@
     <typeAliases>
         <package name="com.maddit.vo"/>
     </typeAliases>
+    <plugins>
+        <plugin interceptor="com.maddit.config.SqlLogInterceptor"/>
+    </plugins>
 </configuration>

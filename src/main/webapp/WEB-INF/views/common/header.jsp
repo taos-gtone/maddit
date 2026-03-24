@@ -108,8 +108,12 @@
         <span class="snav-icon">💬</span>
         <span class="snav-label">자유게시판</span>
       </a>
+      <a href="${pageContext.request.contextPath}/board/program" class="snav-item">
+        <span class="snav-icon">💻</span>
+        <span class="snav-label">프로그램 게시판</span>
+      </a>
       <a href="${pageContext.request.contextPath}/notice/list"   class="snav-item">
-        <span class="snav-icon">📢</span>
+        <span class="snav-icon">🔔</span>
         <span class="snav-label">공지사항</span>
       </a>
     </div>

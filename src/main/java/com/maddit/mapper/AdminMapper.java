@@ -3,6 +3,7 @@ package com.maddit.mapper;
 import com.maddit.vo.AdminLoginHistVO;
 import com.maddit.vo.AdminLoginInfoVO;
 import com.maddit.vo.BoardPostVO;
+import com.maddit.vo.ComCodeDtlVO;
 import com.maddit.vo.MemberVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -17,6 +18,9 @@ public interface AdminMapper {
     void updateLastLoginAt(@Param("adminId") String adminId);
     void insertLoginHist(AdminLoginHistVO hist);
     void updateAdminPassword(@Param("adminId") String adminId, @Param("adminPw") String adminPw);
+
+    /* ── 공통코드 ── */
+    List<ComCodeDtlVO> selectCodeListByGrp(@Param("codeGrpId") String codeGrpId);
 
     /* ── 대시보드 통계 ── */
     int selectTotalMemberCount();
@@ -38,6 +42,8 @@ public interface AdminMapper {
 
     void togglePostApprovalYn(@Param("postNo") long postNo);
     void adminDeletePost(@Param("postNo") long postNo);
+    void adminDeleteComment(@Param("commentNo") long commentNo);
+    void syncCommentCnt(@Param("postNo") long postNo);
 
     /* ── 회원 관리 ── */
     List<MemberVO> selectMemberList(

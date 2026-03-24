@@ -23,14 +23,17 @@
   <div class="adm-nav-divider"></div>
 
   <div class="adm-nav-title">게시판 관리</div>
-  <a href="<%= admCtx %>/admin/board/list" class="adm-nav-item">
-    <span class="adm-nav-icon">📋</span> 전체 게시글
-  </a>
   <a href="<%= admCtx %>/admin/board/list?boardGbnCd=03" class="adm-nav-item">
     <span class="adm-nav-icon">✏️</span> 만들어 주세요
   </a>
   <a href="<%= admCtx %>/admin/board/list?boardGbnCd=01" class="adm-nav-item">
     <span class="adm-nav-icon">💬</span> 자유게시판
+  </a>
+  <a href="<%= admCtx %>/admin/board/list?boardGbnCd=02" class="adm-nav-item">
+    <span class="adm-nav-icon">💻</span> 프로그램 게시판
+  </a>
+  <a href="<%= admCtx %>/admin/board/list?boardGbnCd=04" class="adm-nav-item">
+    <span class="adm-nav-icon">🔔</span> 공지사항
   </a>
 
   <div class="adm-nav-divider"></div>

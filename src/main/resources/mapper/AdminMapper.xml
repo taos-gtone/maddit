@@ -43,6 +43,16 @@
         SELECT COUNT(*) FROM BRD_POST_MST WHERE del_yn = 'N' AND approval_yn = 'N'
     </select>
 
+    <!-- ════════════ 공통코드 ════════════ -->
+
+    <select id="selectCodeListByGrp" resultType="ComCodeDtlVO">
+        SELECT code_grp_id, code_id, code_nm, code_nm_en, use_yn, sort_ord, etc_val1, etc_val2, remark
+          FROM COM_CODE_DTL
+         WHERE code_grp_id = #{codeGrpId}
+           AND use_yn = 'Y'
+         ORDER BY sort_ord
+    </select>
+
     <!-- ════════════ 게시판 관리 ════════════ -->
 
     <select id="selectAdminBoardList" resultType="BoardPostVO">
@@ -107,6 +117,20 @@
 
     <update id="adminDeletePost">
         UPDATE BRD_POST_MST SET del_yn = 'Y', del_ts = NOW() WHERE post_no = #{postNo}
+    </update>
+
+    <update id="adminDeleteComment">
+        UPDATE BRD_POST_COMMENT
+           SET del_yn = 'Y', del_ts = NOW()
+         WHERE comment_no = #{commentNo}
+           AND del_yn = 'N'
+    </update>
+
+    <update id="syncCommentCnt">
+        UPDATE BRD_POST_MST
+           SET comment_cnt = (SELECT COUNT(*) FROM BRD_POST_COMMENT
+                               WHERE post_no = #{postNo} AND del_yn = 'N')
+         WHERE post_no = #{postNo}
     </update>
 
     <!-- ════════════ 회원 관리 ════════════ -->

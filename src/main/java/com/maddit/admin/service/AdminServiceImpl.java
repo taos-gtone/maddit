@@ -4,6 +4,7 @@ import com.maddit.mapper.AdminMapper;
 import com.maddit.vo.AdminLoginHistVO;
 import com.maddit.vo.AdminLoginInfoVO;
 import com.maddit.vo.BoardPostVO;
+import com.maddit.vo.ComCodeDtlVO;
 import com.maddit.vo.MemberVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -40,6 +41,11 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
+    public List<ComCodeDtlVO> getCodeList(String codeGrpId) {
+        return adminMapper.selectCodeListByGrp(codeGrpId);
+    }
+
+    @Override
     public Map<String, Object> getDashboardStats() {
         Map<String, Object> stats = new HashMap<>();
         stats.put("totalMembers",     adminMapper.selectTotalMemberCount());
@@ -64,6 +70,12 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public void adminDeletePost(long postNo) { adminMapper.adminDeletePost(postNo); }
+
+    @Override
+    public void adminDeleteComment(long commentNo, long postNo) {
+        adminMapper.adminDeleteComment(commentNo);
+        adminMapper.syncCommentCnt(postNo);
+    }
 
     @Override
     public List<MemberVO> getMemberList(String searchKeyword, int page, int pageSize) {

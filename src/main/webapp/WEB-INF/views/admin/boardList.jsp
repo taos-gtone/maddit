@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="java.util.List" %>
 <%@ page import="com.maddit.vo.BoardPostVO" %>
+<%@ page import="com.maddit.vo.ComCodeDtlVO" %>
 <!DOCTYPE html>
 <html lang="ko">
 <%@ include file="/WEB-INF/views/admin/layout/head.jsp" %>
@@ -29,22 +30,29 @@
   if (searchType == null) searchType = "all";
   if (searchKeyword == null) searchKeyword = "";
 
+  @SuppressWarnings("unchecked")
+  List<ComCodeDtlVO> boardCodeList = (List<ComCodeDtlVO>) request.getAttribute("boardCodeList");
+
   String baseUrl = "/maddit/admin/board/list";
   String params = "boardGbnCd=" + boardGbnCd
       + (!"all".equals(searchType) ? "&searchType=" + searchType : "")
       + (!searchKeyword.isEmpty() ? "&searchKeyword=" + java.net.URLEncoder.encode(searchKeyword, "UTF-8") : "");
+
+  String boardTitle;
+  switch (boardGbnCd) {
+    case "01": boardTitle = "💬 자유게시판";      break;
+    case "02": boardTitle = "💻 프로그램 게시판"; break;
+    case "03": boardTitle = "✏️ 만들어 주세요";   break;
+    case "04": boardTitle = "🔔 공지사항";        break;
+    default:   boardTitle = "📋 게시판 관리";     break;
+  }
 %>
 
 <div class="adm-content">
-  <h1 class="adm-page-title">📋 게시판 관리</h1>
+  <h1 class="adm-page-title"><%= boardTitle %></h1>
 
   <!-- 필터 -->
   <form class="adm-search-bar" action="<%= baseUrl %>" method="get">
-    <select name="boardGbnCd" class="adm-search-select">
-      <option value=""   <%= "".equals(boardGbnCd)   ? "selected" : "" %>>전체</option>
-      <option value="03" <%= "03".equals(boardGbnCd) ? "selected" : "" %>>만들어주세요</option>
-      <option value="01" <%= "01".equals(boardGbnCd) ? "selected" : "" %>>자유게시판</option>
-    </select>
     <select name="searchType" class="adm-search-select">
       <option value="all"    <%= "all".equals(searchType)    ? "selected" : "" %>>제목+작성자</option>
       <option value="title"  <%= "title".equals(searchType)  ? "selected" : "" %>>제목</option>
@@ -80,7 +88,12 @@
         <tr>
           <td><%= p.getPostNo() %></td>
           <td><%= gbnLabel %></td>
-          <td class="left"><%= org.springframework.web.util.HtmlUtils.htmlEscape(p.getTitle()) %></td>
+          <td class="left">
+            <a href="/maddit/admin/board/view/<%= p.getPostNo() %>?boardGbnCd=<%= boardGbnCd %>&page=<%= currentPage %><%= (!"all".equals(searchType) ? "&searchType=" + searchType : "") + (!searchKeyword.isEmpty() ? "&searchKeyword=" + java.net.URLEncoder.encode(searchKeyword, "UTF-8") : "") %>">
+              <%= org.springframework.web.util.HtmlUtils.htmlEscape(p.getTitle()) %>
+              <% if (p.getCommentCnt() > 0) { %><span style="color:var(--adm-primary);font-size:11px;margin-left:4px;">[<%= p.getCommentCnt() %>]</span><% } %>
+            </a>
+          </td>
           <td><%= org.springframework.web.util.HtmlUtils.htmlEscape(p.getNickname()) %></td>
           <td>
             <span class="adm-badge <%= "Y".equals(p.getApprovalYn()) ? "adm-badge-y" : "adm-badge-n" %>"

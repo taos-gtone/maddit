@@ -20,12 +20,9 @@
     <!-- 카테고리 칩바 -->
     <div class="chips-bar">
       <button class="chip active">전체</button>
-      <button class="chip">생산성</button>
-      <button class="chip">유틸리티</button>
-      <button class="chip">보안</button>
-      <button class="chip">이미지 편집</button>
-      <button class="chip">개발도구</button>
-      <button class="chip">파일관리</button>
+      <c:forEach var="cat" items="${progCategories}">
+        <button class="chip">${cat.codeNm}</button>
+      </c:forEach>
     </div>
 
     <div class="content-inner">

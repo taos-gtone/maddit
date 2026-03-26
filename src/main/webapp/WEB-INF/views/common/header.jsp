@@ -1,4 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
   String loginUser     = (String) session.getAttribute("loginUser");
   String loginNickname = (String) session.getAttribute("loginNickname");
@@ -75,24 +76,23 @@
         <span class="tree-toggle-icon" id="treeProgramIcon">−</span>
       </div>
       <div class="snav-tree-children open" id="treeProgramChildren">
-        <a href="${pageContext.request.contextPath}/program/list?cat=생산성"  class="snav-item snav-child">
-          <span class="snav-icon">⚡</span><span class="snav-label">생산성</span>
-        </a>
-        <a href="${pageContext.request.contextPath}/program/list?cat=유틸리티" class="snav-item snav-child">
-          <span class="snav-icon">🛠️</span><span class="snav-label">유틸리티</span>
-        </a>
-        <a href="${pageContext.request.contextPath}/program/list?cat=보안"    class="snav-item snav-child">
-          <span class="snav-icon">🔐</span><span class="snav-label">보안</span>
-        </a>
-        <a href="${pageContext.request.contextPath}/program/list?cat=이미지"  class="snav-item snav-child">
-          <span class="snav-icon">🖼️</span><span class="snav-label">이미지 편집</span>
-        </a>
-        <a href="${pageContext.request.contextPath}/program/list?cat=개발도구" class="snav-item snav-child">
-          <span class="snav-icon">💻</span><span class="snav-label">개발도구</span>
-        </a>
-        <a href="${pageContext.request.contextPath}/program/list?cat=파일관리" class="snav-item snav-child">
-          <span class="snav-icon">🗂️</span><span class="snav-label">파일관리</span>
-        </a>
+        <c:forEach var="cat" items="${progCategories}">
+          <a href="${pageContext.request.contextPath}/program/list?cat=${cat.codeNmEn}" class="snav-item snav-child">
+            <span class="snav-icon">
+              <c:choose>
+                <c:when test="${cat.codeId == '10'}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></c:when>
+                <c:when test="${cat.codeId == '20'}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></c:when>
+                <c:when test="${cat.codeId == '30'}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></c:when>
+                <c:when test="${cat.codeId == '40'}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></c:when>
+                <c:when test="${cat.codeId == '50'}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></c:when>
+                <c:when test="${cat.codeId == '60'}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></c:when>
+                <c:when test="${cat.codeId == '99'}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg></c:when>
+                <c:otherwise><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg></c:otherwise>
+              </c:choose>
+            </span>
+            <span class="snav-label">${cat.codeNm}</span>
+          </a>
+        </c:forEach>
       </div>
     </div>
 

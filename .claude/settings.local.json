@@ -10,7 +10,8 @@
       "Bash(sed -i 's|/board/request|/board/free|g; s|만들어 주세요|자유게시판|g; s|✏️ 자유게시판|💬 자유게시판|g; s|어떤 프로그램을 만들어 달라고 요청할까요?|자유롭게 이야기를 나눠보세요|g; s|원하는 프로그램의 기능, 사용 환경 등을 자세히 설명해주세요.|내용을 입력하세요.|g' freeWrite.jsp)",
       "Bash(sed -i 's|/board/request|/board/free|g; s|만들어 주세요|자유게시판|g; s|✏️ 자유게시판|💬 자유게시판|g' freeView.jsp)",
       "Bash(sed -i 's|/board/request|/board/free|g; s|만들어 주세요|자유게시판|g; s|✏️ 자유게시판|💬 자유게시판|g' freeEdit.jsp)",
-      "Bash(mvn compile:*)"
+      "Bash(mvn compile:*)",
+      "Bash(xargs grep:*)"
     ]
   }
 }

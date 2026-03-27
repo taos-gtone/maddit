@@ -30,7 +30,8 @@
     <div class="prog-card" onclick="location.href='<%= ctxPath %>/program/<%= bp.getPostNo() %>'">
       <div class="prog-thumb"<% if (bp.getThumbFilePath() != null && !bp.getThumbFilePath().isEmpty()) { %> style="background:#f0f2f5;padding:0;"<% } else { %> style="background:<%= grad %>"<% } %>>
         <% if (bp.getThumbFilePath() != null && !bp.getThumbFilePath().isEmpty()) { %>
-        <img src="<%= ctxPath %>/upload<%= bp.getThumbFilePath() %>" alt="" style="width:100%;height:100%;object-fit:cover;">
+        <img src="<%= ctxPath %>/upload<%= bp.getThumbFilePath() %>" alt="" style="width:100%;height:100%;object-fit:cover;"
+             onerror="this.style.display='none';this.parentNode.style.background='<%= grad %>';this.parentNode.innerHTML='<span class=thumb-icon>💻</span>';">
         <% } else { %>
         <span class="thumb-icon">💻</span>
         <% } %>

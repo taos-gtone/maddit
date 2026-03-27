@@ -105,7 +105,7 @@ function _renderProgGrid(grid, list, base) {
     var hasThumb = p.thumbFilePath && p.thumbFilePath.length > 0;
     var thumbStyle = hasThumb ? 'background:#f0f2f5;padding:0;' : 'background:' + grad;
     var thumbInner = hasThumb
-      ? '<img src="' + base + '/upload' + _esc(p.thumbFilePath) + '" alt="" style="width:100%;height:100%;object-fit:cover;">'
+      ? '<img src="' + base + '/upload' + _esc(p.thumbFilePath) + '" alt="" style="width:100%;height:100%;object-fit:cover;" onerror="this.style.display=\'none\';this.parentNode.style.background=\'' + grad + '\';this.parentNode.innerHTML=\'<span class=thumb-icon>💻</span>\';">'
       : '<span class="thumb-icon">💻</span>';
     var catHtml = p.catNm ? '<span class="prog-cat">' + _esc(p.catNm) + '</span>' : '';
     grid.insertAdjacentHTML('beforeend',

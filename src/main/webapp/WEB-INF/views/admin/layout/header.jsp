@@ -29,7 +29,7 @@
   <a href="<%= admCtx %>/admin/board/list?boardGbnCd=01" class="adm-nav-item">
     <span class="adm-nav-icon">💬</span> 자유게시판
   </a>
-  <a href="<%= admCtx %>/admin/board/list?boardGbnCd=02" class="adm-nav-item">
+  <a href="<%= admCtx %>/admin/program/list" class="adm-nav-item">
     <span class="adm-nav-icon">💻</span> 프로그램 게시판
   </a>
   <a href="<%= admCtx %>/admin/board/list?boardGbnCd=04" class="adm-nav-item">

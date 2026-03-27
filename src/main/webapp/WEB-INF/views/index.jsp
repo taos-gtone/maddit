@@ -18,10 +18,10 @@
   <main class="main-content" id="main">
 
     <!-- 카테고리 칩바 -->
-    <div class="chips-bar">
-      <button class="chip active">전체</button>
+    <div class="chips-bar" id="chipsBar">
+      <button class="chip active" data-cat="" onclick="filterByCategory(this)">전체</button>
       <c:forEach var="cat" items="${progCategories}">
-        <button class="chip">${cat.codeNm}</button>
+        <button class="chip" data-cat="${cat.codeId}" onclick="filterByCategory(this)">${cat.codeNm}</button>
       </c:forEach>
     </div>
 
@@ -50,5 +50,16 @@
 
 <%@ include file="/WEB-INF/views/common/footer.jsp" %>
 <%@ include file="/WEB-INF/views/common/scripts.jsp" %>
+
+<script>
+var ctxPath = '${pageContext.request.contextPath}';
+
+function filterByCategory(el) {
+  document.querySelectorAll('#chipsBar .chip').forEach(function(c) { c.classList.remove('active'); });
+  el.classList.add('active');
+  var cat = el.getAttribute('data-cat') || '';
+  _fetchPrograms(cat, _currentSort);
+}
+</script>
 </body>
 </html>

@@ -19,8 +19,14 @@ public class BoardPostVO {
     private Timestamp createTs;
     private Timestamp updateTs;
 
+    private String    boardCatGbnCd;
+
     // 조인 필드
     private String nickname;
+    private String thumbFilePath;   // 메인 썸네일 상대경로
+    private String catNm;           // 카테고리 코드명
+    private int    fileCnt;         // 첨부파일 수
+    private int    totalDownloadCnt; // 총 다운로드 수
 
     public long getPostNo() { return postNo; }
     public void setPostNo(long postNo) { this.postNo = postNo; }
@@ -64,8 +70,23 @@ public class BoardPostVO {
     public Timestamp getUpdateTs() { return updateTs; }
     public void setUpdateTs(Timestamp updateTs) { this.updateTs = updateTs; }
 
+    public String getBoardCatGbnCd() { return boardCatGbnCd; }
+    public void setBoardCatGbnCd(String boardCatGbnCd) { this.boardCatGbnCd = boardCatGbnCd; }
+
     public String getNickname() { return nickname; }
     public void setNickname(String nickname) { this.nickname = nickname; }
+
+    public String getThumbFilePath() { return thumbFilePath; }
+    public void setThumbFilePath(String thumbFilePath) { this.thumbFilePath = thumbFilePath; }
+
+    public String getCatNm() { return catNm; }
+    public void setCatNm(String catNm) { this.catNm = catNm; }
+
+    public int getFileCnt() { return fileCnt; }
+    public void setFileCnt(int fileCnt) { this.fileCnt = fileCnt; }
+
+    public int getTotalDownloadCnt() { return totalDownloadCnt; }
+    public void setTotalDownloadCnt(int totalDownloadCnt) { this.totalDownloadCnt = totalDownloadCnt; }
 
     /** 상대 시간 반환 (몇초 전, 몇분 전, ...) */
     public String getTimeAgo() {

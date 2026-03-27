@@ -6,6 +6,10 @@
   List<BoardPostVO> requestPosts = (List<BoardPostVO>) request.getAttribute("requestPosts");
   @SuppressWarnings("unchecked")
   List<BoardPostVO> freePosts = (List<BoardPostVO>) request.getAttribute("freePosts");
+  @SuppressWarnings("unchecked")
+  List<BoardPostVO> programBoardPosts = (List<BoardPostVO>) request.getAttribute("programBoardPosts");
+  @SuppressWarnings("unchecked")
+  List<BoardPostVO> noticePosts = (List<BoardPostVO>) request.getAttribute("noticePosts");
   String ctx = request.getContextPath();
 %>
 
@@ -80,6 +84,74 @@
       <li class="board-item">
         <div class="board-item-body">
           <div class="board-item-meta" style="padding:20px 0;text-align:center;color:var(--text-3);">아직 게시글이 없습니다.</div>
+        </div>
+      </li>
+      <% } %>
+    </ul>
+  </div>
+
+  <!-- 프로그램 게시판 -->
+  <div class="board-panel">
+    <div class="board-panel-header">
+      <h2 class="board-panel-title">💻 프로그램 게시판</h2>
+      <div class="board-panel-actions">
+        <a href="<%= ctx %>/program/list" class="view-all">전체보기 ›</a>
+      </div>
+    </div>
+    <ul class="board-list">
+      <% if (programBoardPosts != null && !programBoardPosts.isEmpty()) {
+           for (BoardPostVO p : programBoardPosts) { %>
+      <li class="board-item">
+        <a href="<%= ctx %>/program/<%= p.getPostNo() %>" class="board-item-body">
+          <div class="board-item-title"><%= org.springframework.web.util.HtmlUtils.htmlEscape(p.getTitle()) %></div>
+          <div class="board-item-meta">
+            <%= org.springframework.web.util.HtmlUtils.htmlEscape(p.getNickname()) %>
+            &middot; <%= p.getTimeAgo() %>
+            <% if (p.getCommentCnt() > 0) { %>
+            &middot; <span class="reply-cnt">💬 <%= p.getCommentCnt() %></span>
+            <% } %>
+            <% if (p.getTotalDownloadCnt() > 0) { %>
+            &middot; <span class="reply-cnt">⬇ <%= p.getTotalDownloadCnt() %></span>
+            <% } %>
+          </div>
+        </a>
+      </li>
+      <% } } else { %>
+      <li class="board-item">
+        <div class="board-item-body">
+          <div class="board-item-meta" style="padding:20px 0;text-align:center;color:var(--text-3);">아직 게시글이 없습니다.</div>
+        </div>
+      </li>
+      <% } %>
+    </ul>
+  </div>
+
+  <!-- 공지사항 -->
+  <div class="board-panel">
+    <div class="board-panel-header">
+      <h2 class="board-panel-title">🔔 공지사항</h2>
+      <div class="board-panel-actions">
+        <a href="<%= ctx %>/notice/list" class="view-all">전체보기 ›</a>
+      </div>
+    </div>
+    <ul class="board-list">
+      <% if (noticePosts != null && !noticePosts.isEmpty()) {
+           for (BoardPostVO p : noticePosts) { %>
+      <li class="board-item">
+        <a href="<%= ctx %>/notice/<%= p.getPostNo() %>" class="board-item-body">
+          <div class="board-item-title"><%= org.springframework.web.util.HtmlUtils.htmlEscape(p.getTitle()) %></div>
+          <div class="board-item-meta">
+            <%= p.getTimeAgo() %>
+            <% if (p.getCommentCnt() > 0) { %>
+            &middot; <span class="reply-cnt">💬 <%= p.getCommentCnt() %></span>
+            <% } %>
+          </div>
+        </a>
+      </li>
+      <% } } else { %>
+      <li class="board-item">
+        <div class="board-item-body">
+          <div class="board-item-meta" style="padding:20px 0;text-align:center;color:var(--text-3);">아직 공지사항이 없습니다.</div>
         </div>
       </li>
       <% } %>

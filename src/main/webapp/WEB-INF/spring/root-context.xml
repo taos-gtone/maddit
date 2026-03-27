@@ -8,6 +8,9 @@
            http://www.springframework.org/schema/context
            http://www.springframework.org/schema/context/spring-context.xsd">
 
+    <!-- properties 로딩 -->
+    <context:property-placeholder location="classpath:application.properties" ignore-unresolvable="true"/>
+
     <!-- Service, Mapper 컴포넌트 스캔 -->
     <context:component-scan base-package="com.maddit">
         <context:exclude-filter type="annotation"

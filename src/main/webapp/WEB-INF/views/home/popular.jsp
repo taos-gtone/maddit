@@ -1,25 +1,63 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ page import="com.maddit.vo.ProgramVO, java.util.List" %>
+<%@ page import="com.maddit.vo.ProgramVO, com.maddit.vo.BoardPostVO, java.util.List" %>
 <%
+  @SuppressWarnings("unchecked")
+  List<BoardPostVO> programPosts = (List<BoardPostVO>) request.getAttribute("programPosts");
+  @SuppressWarnings("unchecked")
   List<ProgramVO> popularList = (List<ProgramVO>) request.getAttribute("popularList");
-  String[] rankClass = {"rank-1","rank-2","rank-3","rank-4","rank-5"};
+  String ctxPath = request.getContextPath();
 %>
 
-<!-- ===== 인기 프로그램 ===== -->
+<!-- ===== 프로그램 ===== -->
 <section class="prog-section">
   <div class="prog-grid">
-    <% if (popularList != null && !popularList.isEmpty()) {
+    <%-- DB 데이터가 있으면 실제 데이터 표시 --%>
+    <% if (programPosts != null && !programPosts.isEmpty()) {
+         for (int i = 0; i < programPosts.size(); i++) {
+           BoardPostVO bp = programPosts.get(i);
+    %>
+    <%
+      String[] gradients = {
+        "linear-gradient(135deg,#4facfe,#00f2fe)", "linear-gradient(135deg,#667eea,#764ba2)",
+        "linear-gradient(135deg,#11998e,#38ef7d)", "linear-gradient(135deg,#f7971e,#ffd200)",
+        "linear-gradient(135deg,#f093fb,#f5576c)", "linear-gradient(135deg,#43e97b,#38f9d7)",
+        "linear-gradient(135deg,#fa709a,#fee140)", "linear-gradient(135deg,#a18cd1,#fbc2eb)",
+        "linear-gradient(135deg,#30cfd0,#330867)", "linear-gradient(135deg,#ff9a9e,#fecfef)",
+        "linear-gradient(135deg,#fd746c,#ff9068)", "linear-gradient(135deg,#2c3e50,#4ca1af)"
+      };
+      String grad = gradients[i % gradients.length];
+    %>
+    <div class="prog-card" onclick="location.href='<%= ctxPath %>/program/<%= bp.getPostNo() %>'">
+      <div class="prog-thumb"<% if (bp.getThumbFilePath() != null && !bp.getThumbFilePath().isEmpty()) { %> style="background:#f0f2f5;padding:0;"<% } else { %> style="background:<%= grad %>"<% } %>>
+        <% if (bp.getThumbFilePath() != null && !bp.getThumbFilePath().isEmpty()) { %>
+        <img src="<%= ctxPath %>/upload<%= bp.getThumbFilePath() %>" alt="" style="width:100%;height:100%;object-fit:cover;">
+        <% } else { %>
+        <span class="thumb-icon">💻</span>
+        <% } %>
+      </div>
+      <div class="prog-meta">
+        <div class="prog-info">
+          <div class="prog-title"><%= org.springframework.web.util.HtmlUtils.htmlEscape(bp.getTitle()) %></div>
+          <div class="prog-stats">
+            <% if (bp.getCatNm() != null) { %><span class="prog-cat"><%= bp.getCatNm() %></span><% } %>
+            <span class="prog-stat-item">👁 <%= bp.getViewCnt() %></span>
+            <span class="prog-stat-item">⬇ <%= bp.getTotalDownloadCnt() %></span>
+            <span class="prog-stat-item">💬 <%= bp.getCommentCnt() %></span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <% }
+    } else if (popularList != null && !popularList.isEmpty()) {
          for (int i = 0; i < popularList.size(); i++) {
            ProgramVO p = popularList.get(i);
            String dlFmt  = String.format("%,d", p.getDownloadCnt());
-           String rClass = (i < rankClass.length) ? rankClass[i] : "rank-5";
     %>
-    <div class="prog-card" data-dl="<%= p.getDownloadCnt() %>" data-date="<%= p.getRegDate() %>" onclick="location.href='${pageContext.request.contextPath}/program/<%= p.getProgNo() %>'">
+    <div class="prog-card" data-dl="<%= p.getDownloadCnt() %>" data-date="<%= p.getRegDate() %>" onclick="">
       <div class="prog-thumb" style="background:<%= p.getProgColor() %>">
         <span class="thumb-icon"><%= p.getProgIcon() %></span>
       </div>
       <div class="prog-meta">
-        <div class="prog-avatar" style="background:<%= p.getProgColor() %>"><%= p.getProgIcon() %></div>
         <div class="prog-info">
           <div class="prog-title"><%= p.getProgName() %></div>
           <div class="prog-desc"><%= p.getProgDesc() %></div>

@@ -56,30 +56,81 @@
   });
 })();
 
-/* ── 인기순 / 최신순 정렬 토글 ── */
+/* ── 인기순 / 최신순 정렬 토글 (AJAX) ── */
+var _currentSort = 'latest';
 function setSort(mode) {
+  _currentSort = mode;
   document.getElementById('btn-popular').classList.toggle('active', mode === 'popular');
   document.getElementById('btn-latest').classList.toggle('active',  mode === 'latest');
 
-  var grid = document.querySelector('#prog-wrap .prog-grid');
-  if (!grid) return;
+  // 현재 선택된 카테고리
+  var activeChip = document.querySelector('#chipsBar .chip.active');
+  var cat = activeChip ? (activeChip.getAttribute('data-cat') || '') : '';
 
-  var cards = Array.from(grid.querySelectorAll('.prog-card'));
-  if (mode === 'popular') {
-    cards.sort(function(a, b) {
-      return parseInt(b.dataset.dl || 0) - parseInt(a.dataset.dl || 0);
-    });
-  } else {
-    cards.sort(function(a, b) {
-      return (b.dataset.date || '').localeCompare(a.dataset.date || '');
-    });
+  if (typeof filterByCategory === 'function' && typeof _currentSort !== 'undefined') {
+    // index.jsp에서 정의된 filterByCategory 재활용
+    _fetchPrograms(cat, mode);
   }
-
-  cards.forEach(function(c) { grid.appendChild(c); });
 }
+function _fetchPrograms(cat, sort) {
+  var ctxP = '';
+  try { ctxP = document.querySelector('meta[name="ctx"]') ? document.querySelector('meta[name="ctx"]').content : ''; } catch(e) {}
+  // index.jsp의 ctxPath 변수 사용
+  var base = (typeof ctxPath !== 'undefined') ? ctxPath : ctxP;
+  var url = base + '/api/programs?sort=' + (sort || _currentSort || 'latest') + (cat ? '&boardCatGbnCd=' + cat : '');
+
+  fetch(url).then(function(r) { return r.json(); }).then(function(list) {
+    var grid = document.querySelector('#prog-wrap .prog-grid');
+    if (!grid) return;
+    _renderProgGrid(grid, list, base);
+  });
+}
+function _renderProgGrid(grid, list, base) {
+  var gradients = [
+    'linear-gradient(135deg,#4facfe,#00f2fe)', 'linear-gradient(135deg,#667eea,#764ba2)',
+    'linear-gradient(135deg,#11998e,#38ef7d)', 'linear-gradient(135deg,#f7971e,#ffd200)',
+    'linear-gradient(135deg,#f093fb,#f5576c)', 'linear-gradient(135deg,#43e97b,#38f9d7)',
+    'linear-gradient(135deg,#fa709a,#fee140)', 'linear-gradient(135deg,#a18cd1,#fbc2eb)',
+    'linear-gradient(135deg,#30cfd0,#330867)', 'linear-gradient(135deg,#ff9a9e,#fecfef)',
+    'linear-gradient(135deg,#fd746c,#ff9068)', 'linear-gradient(135deg,#2c3e50,#4ca1af)'
+  ];
+  grid.innerHTML = '';
+  if (list.length === 0) {
+    grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:40px;color:#999;">등록된 프로그램이 없습니다.</div>';
+    return;
+  }
+  var d = document.createElement('div');
+  list.forEach(function(p, i) {
+    var grad = gradients[i % gradients.length];
+    var hasThumb = p.thumbFilePath && p.thumbFilePath.length > 0;
+    var thumbStyle = hasThumb ? 'background:#f0f2f5;padding:0;' : 'background:' + grad;
+    var thumbInner = hasThumb
+      ? '<img src="' + base + '/upload' + _esc(p.thumbFilePath) + '" alt="" style="width:100%;height:100%;object-fit:cover;">'
+      : '<span class="thumb-icon">💻</span>';
+    var catHtml = p.catNm ? '<span class="prog-cat">' + _esc(p.catNm) + '</span>' : '';
+    grid.insertAdjacentHTML('beforeend',
+      '<div class="prog-card" onclick="location.href=\'' + base + '/program/' + p.postNo + '\'">'
+      + '<div class="prog-thumb" style="' + thumbStyle + '">' + thumbInner + '</div>'
+      + '<div class="prog-meta"><div class="prog-info">'
+      + '<div class="prog-title">' + _esc(p.title) + '</div>'
+      + '<div class="prog-stats">' + catHtml
+      + '<span class="prog-stat-item">👁 ' + p.viewCnt + '</span>'
+      + '<span class="prog-stat-item">⬇ ' + p.totalDownloadCnt + '</span>'
+      + '<span class="prog-stat-item">💬 ' + (p.commentCnt || 0) + '</span>'
+      + '</div></div></div></div>');
+  });
+}
+function _esc(s) { if(!s) return ''; var d=document.createElement('div'); d.textContent=s; return d.innerHTML; }
 (function() {
-  if (document.getElementById('prog-wrap')) {
-    setSort(Math.random() < 0.5 ? 'popular' : 'latest');
+  var btnP = document.getElementById('btn-popular');
+  var btnL = document.getElementById('btn-latest');
+  if (btnP && btnL) {
+    var initSort = Math.random() < 0.5 ? 'popular' : 'latest';
+    _currentSort = initSort;
+    btnP.classList.toggle('active', initSort === 'popular');
+    btnL.classList.toggle('active', initSort === 'latest');
+    // 초기 데이터를 랜덤 정렬로 로드
+    setTimeout(function() { _fetchPrograms('', initSort); }, 100);
   }
 })();
 

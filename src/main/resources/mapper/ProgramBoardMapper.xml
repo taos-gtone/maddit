@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.maddit.mapper.ProgramBoardMapper">
+
+    <!-- 프로그램 게시판 board_gbn_cd = '02' -->
+
+    <!-- 공통 검색 WHERE -->
+    <sql id="programSearchWhere">
+        AND p.board_gbn_cd = '02'
+        AND p.del_yn = 'N'
+        <if test="boardCatGbnCd != null and boardCatGbnCd != ''">
+            AND p.board_cat_gbn_cd = #{boardCatGbnCd}
+        </if>
+        <if test="searchKeyword != null and searchKeyword != ''">
+            <choose>
+                <when test="searchType == 'title'">
+                    AND p.title LIKE CONCAT('%', #{searchKeyword}, '%')
+                </when>
+                <when test="searchType == 'content'">
+                    AND p.content LIKE CONCAT('%', #{searchKeyword}, '%')
+                </when>
+                <otherwise>
+                    AND (p.title LIKE CONCAT('%', #{searchKeyword}, '%')
+                      OR p.content LIKE CONCAT('%', #{searchKeyword}, '%'))
+                </otherwise>
+            </choose>
+        </if>
+    </sql>
+
+    <!-- 게시글 목록 (관리자 + 사용자 공통) -->
+    <select id="selectProgramPostList" resultType="BoardPostVO">
+        SELECT
+            p.post_no, p.board_gbn_cd, p.board_cat_gbn_cd, p.member_no,
+            p.title, p.view_cnt, p.like_cnt, p.dislike_cnt, p.comment_cnt,
+            p.approval_yn, p.del_yn, p.create_ts, p.update_ts,
+            COALESCE(m.nickname, '관리자') AS nickname,
+            cat.code_nm AS cat_nm,
+            (SELECT COUNT(*) FROM BRD_POST_FILE f WHERE f.post_no = p.post_no AND f.del_yn = 'N') AS file_cnt,
+            (SELECT COALESCE(SUM(f.download_cnt), 0) FROM BRD_POST_FILE f WHERE f.post_no = p.post_no AND f.del_yn = 'N') AS total_download_cnt,
+            (SELECT t.file_path FROM BRD_POST_FILE_THUMB t
+               JOIN BRD_POST_FILE f2 ON f2.file_no = t.file_no
+              WHERE f2.post_no = p.post_no AND f2.del_yn = 'N'
+                AND t.thumb_typ_cd = '01'
+              ORDER BY t.thumb_no ASC LIMIT 1) AS thumb_file_path
+        FROM BRD_POST_MST p
+        LEFT JOIN MEM_JOIN_INFO m ON m.member_no = p.member_no
+        LEFT JOIN COM_CODE_DTL cat ON cat.code_grp_id = 'C014' AND cat.code_id = p.board_cat_gbn_cd AND cat.use_yn = 'Y'
+        WHERE 1=1
+        <include refid="programSearchWhere"/>
+        ORDER BY p.post_no DESC
+        LIMIT #{pageSize} OFFSET #{offset}
+    </select>
+
+    <!-- 게시글 건수 -->
+    <select id="selectProgramPostCount" resultType="int">
+        SELECT COUNT(*)
+        FROM BRD_POST_MST p
+        WHERE 1=1
+        <include refid="programSearchWhere"/>
+    </select>
+
+    <!-- 게시글 단건 조회 -->
+    <select id="selectProgramPost" resultType="BoardPostVO">
+        SELECT
+            p.post_no, p.board_gbn_cd, p.board_cat_gbn_cd, p.member_no,
+            p.title, p.content, p.view_cnt, p.like_cnt, p.dislike_cnt, p.comment_cnt,
+            p.approval_yn, p.del_yn, p.create_ts, p.update_ts,
+            COALESCE(m.nickname, '관리자') AS nickname,
+            cat.code_nm AS cat_nm
+        FROM BRD_POST_MST p
+        LEFT JOIN MEM_JOIN_INFO m ON m.member_no = p.member_no
+        LEFT JOIN COM_CODE_DTL cat ON cat.code_grp_id = 'C014' AND cat.code_id = p.board_cat_gbn_cd AND cat.use_yn = 'Y'
+        WHERE p.post_no = #{postNo}
+          AND p.board_gbn_cd = '02'
+          AND p.del_yn = 'N'
+    </select>
+
+    <!-- 게시글 등록 -->
+    <insert id="insertProgramPost" useGeneratedKeys="true" keyProperty="postNo">
+        INSERT INTO BRD_POST_MST
+            (board_gbn_cd, board_cat_gbn_cd, member_no, title, content,
+             view_cnt, like_cnt, dislike_cnt, comment_cnt, reg_ip, approval_yn, del_yn)
+        VALUES
+            ('02', #{boardCatGbnCd}, #{memberNo}, #{title}, #{content},
+             0, 0, 0, 0, #{regIp}, 'Y', 'N')
+    </insert>
+
+    <!-- 게시글 수정 -->
+    <update id="updateProgramPost">
+        UPDATE BRD_POST_MST
+           SET title           = #{title},
+               content         = #{content},
+               board_cat_gbn_cd = #{boardCatGbnCd},
+               update_ts       = NOW()
+         WHERE post_no = #{postNo}
+           AND board_gbn_cd = '02'
+           AND del_yn = 'N'
+    </update>
+
+    <!-- 게시글 삭제 (논리삭제) -->
+    <update id="deleteProgramPost">
+        UPDATE BRD_POST_MST
+           SET del_yn = 'Y', del_ts = NOW()
+         WHERE post_no = #{postNo}
+           AND board_gbn_cd = '02'
+    </update>
+
+    <!-- 조회수 증가 -->
+    <update id="updateViewCnt">
+        UPDATE BRD_POST_MST SET view_cnt = view_cnt + 1 WHERE post_no = #{postNo}
+    </update>
+
+    <!-- ════════ 첨부파일 ════════ -->
+
+    <insert id="insertPostFile" useGeneratedKeys="true" keyProperty="fileNo">
+        INSERT INTO BRD_POST_FILE
+            (post_no, version_nm, org_file_nm, save_file_nm, file_path,
+             file_size, file_ext, download_cnt, latest_yn, del_yn)
+        VALUES
+            (#{postNo}, #{versionNm}, #{orgFileNm}, #{saveFileNm}, #{filePath},
+             #{fileSize}, #{fileExt}, 0, #{latestYn}, 'N')
+    </insert>
+
+    <select id="selectPostFiles" resultType="BoardPostFileVO">
+        SELECT file_no, post_no, version_nm, org_file_nm, save_file_nm,
+               file_path, file_size, file_ext, download_cnt, latest_yn, del_yn, create_ts
+          FROM BRD_POST_FILE
+         WHERE post_no = #{postNo}
+           AND del_yn = 'N'
+         ORDER BY file_no DESC
+    </select>
+
+    <select id="selectPostFile" resultType="BoardPostFileVO">
+        SELECT file_no, post_no, version_nm, org_file_nm, save_file_nm,
+               file_path, file_size, file_ext, download_cnt, latest_yn, del_yn, create_ts
+          FROM BRD_POST_FILE
+         WHERE file_no = #{fileNo}
+           AND del_yn = 'N'
+    </select>
+
+    <update id="increaseDownloadCnt">
+        UPDATE BRD_POST_FILE SET download_cnt = download_cnt + 1 WHERE file_no = #{fileNo}
+    </update>
+
+    <update id="deletePostFile">
+        UPDATE BRD_POST_FILE SET del_yn = 'Y' WHERE file_no = #{fileNo}
+    </update>
+
+    <update id="deletePostFilesByPostNo">
+        UPDATE BRD_POST_FILE SET del_yn = 'Y' WHERE post_no = #{postNo}
+    </update>
+
+    <!-- ════════ 썸네일 ════════ -->
+
+    <insert id="insertPostFileThumb" useGeneratedKeys="true" keyProperty="thumbNo">
+        INSERT INTO BRD_POST_FILE_THUMB
+            (file_no, thumb_typ_cd, org_file_nm, save_file_nm, file_path,
+             file_size, width, height)
+        VALUES
+            (#{fileNo}, #{thumbTypCd}, #{orgFileNm}, #{saveFileNm}, #{filePath},
+             #{fileSize}, #{width}, #{height})
+    </insert>
+
+    <select id="selectPostFileThumbs" resultType="BoardPostFileThumbVO">
+        SELECT t.thumb_no, t.file_no, t.thumb_typ_cd, t.org_file_nm, t.save_file_nm,
+               t.file_path, t.file_size, t.width, t.height, t.create_ts,
+               c.code_nm AS thumb_typ_nm
+          FROM BRD_POST_FILE_THUMB t
+          LEFT JOIN COM_CODE_DTL c ON c.code_grp_id = 'C015' AND c.code_id = t.thumb_typ_cd AND c.use_yn = 'Y'
+         WHERE t.file_no = #{fileNo}
+         ORDER BY t.thumb_no
+    </select>
+
+    <select id="selectThumbsByPostNo" resultType="BoardPostFileThumbVO">
+        SELECT t.thumb_no, t.file_no, t.thumb_typ_cd, t.org_file_nm, t.save_file_nm,
+               t.file_path, t.file_size, t.width, t.height, t.create_ts,
+               c.code_nm AS thumb_typ_nm
+          FROM BRD_POST_FILE_THUMB t
+          JOIN BRD_POST_FILE f ON f.file_no = t.file_no AND f.del_yn = 'N'
+          LEFT JOIN COM_CODE_DTL c ON c.code_grp_id = 'C015' AND c.code_id = t.thumb_typ_cd AND c.use_yn = 'Y'
+         WHERE f.post_no = #{postNo}
+         ORDER BY t.thumb_typ_cd, t.thumb_no
+    </select>
+
+    <select id="selectMainThumbByPostNo" resultType="BoardPostFileThumbVO">
+        SELECT t.thumb_no, t.file_no, t.thumb_typ_cd, t.org_file_nm, t.save_file_nm,
+               t.file_path, t.file_size, t.width, t.height, t.create_ts
+          FROM BRD_POST_FILE_THUMB t
+          JOIN BRD_POST_FILE f ON f.file_no = t.file_no AND f.del_yn = 'N'
+         WHERE f.post_no = #{postNo}
+           AND t.thumb_typ_cd = '01'
+         ORDER BY t.thumb_no ASC
+         LIMIT 1
+    </select>
+
+    <delete id="deletePostFileThumb">
+        DELETE FROM BRD_POST_FILE_THUMB WHERE thumb_no = #{thumbNo}
+    </delete>
+
+    <delete id="deleteThumbsByFileNo">
+        DELETE FROM BRD_POST_FILE_THUMB WHERE file_no = #{fileNo}
+    </delete>
+
+    <delete id="deleteThumbsByPostNo">
+        DELETE t FROM BRD_POST_FILE_THUMB t
+          JOIN BRD_POST_FILE f ON f.file_no = t.file_no
+         WHERE f.post_no = #{postNo}
+    </delete>
+
+    <!-- ════════ 메인 노출용 ════════ -->
+    <select id="selectProgramPostsForMain" resultType="BoardPostVO">
+        SELECT
+            p.post_no, p.board_gbn_cd, p.board_cat_gbn_cd, p.title,
+            p.view_cnt, p.like_cnt, p.comment_cnt,
+            p.create_ts, p.update_ts,
+            COALESCE(m.nickname, '관리자') AS nickname,
+            cat.code_nm AS cat_nm,
+            (SELECT COALESCE(SUM(f.download_cnt), 0) FROM BRD_POST_FILE f WHERE f.post_no = p.post_no AND f.del_yn = 'N') AS total_download_cnt,
+            (SELECT t.file_path FROM BRD_POST_FILE_THUMB t
+               JOIN BRD_POST_FILE f2 ON f2.file_no = t.file_no
+              WHERE f2.post_no = p.post_no AND f2.del_yn = 'N'
+                AND t.thumb_typ_cd = '01'
+              ORDER BY t.thumb_no ASC LIMIT 1) AS thumb_file_path
+        FROM BRD_POST_MST p
+        LEFT JOIN MEM_JOIN_INFO m ON m.member_no = p.member_no
+        LEFT JOIN COM_CODE_DTL cat ON cat.code_grp_id = 'C014' AND cat.code_id = p.board_cat_gbn_cd AND cat.use_yn = 'Y'
+        WHERE p.board_gbn_cd = '02'
+          AND p.del_yn = 'N'
+          AND p.approval_yn = 'Y'
+        <if test="boardCatGbnCd != null and boardCatGbnCd != ''">
+            AND p.board_cat_gbn_cd = #{boardCatGbnCd}
+        </if>
+        <choose>
+            <when test="sort == 'popular'">
+        ORDER BY total_download_cnt DESC, p.post_no DESC
+            </when>
+            <otherwise>
+        ORDER BY p.create_ts DESC, p.post_no DESC
+            </otherwise>
+        </choose>
+        LIMIT #{pageSize} OFFSET #{offset}
+    </select>
+
+</mapper>

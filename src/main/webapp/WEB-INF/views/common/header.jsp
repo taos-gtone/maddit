@@ -77,7 +77,7 @@
       </div>
       <div class="snav-tree-children open" id="treeProgramChildren">
         <c:forEach var="cat" items="${progCategories}">
-          <a href="${pageContext.request.contextPath}/program/list?cat=${cat.codeNmEn}" class="snav-item snav-child">
+          <a href="${pageContext.request.contextPath}/program/list?boardCatGbnCd=${cat.codeId}" class="snav-item snav-child">
             <span class="snav-icon">
               <c:choose>
                 <c:when test="${cat.codeId == '10'}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></c:when>
@@ -108,7 +108,7 @@
         <span class="snav-icon">💬</span>
         <span class="snav-label">자유게시판</span>
       </a>
-      <a href="${pageContext.request.contextPath}/board/program" class="snav-item">
+      <a href="${pageContext.request.contextPath}/program/list" class="snav-item">
         <span class="snav-icon">💻</span>
         <span class="snav-label">프로그램 게시판</span>
       </a>

@@ -1,6 +1,6 @@
 {
   "version": "2.0",
-  "lastUpdated": "2026-03-25T00:44:43.454Z",
+  "lastUpdated": "2026-03-27T07:34:26.395Z",
   "activeFeatures": [
     "vo",
     "controller",
@@ -20,9 +20,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-21T16:50:40.139Z",
-        "lastUpdated": "2026-03-24T14:18:45.514Z"
+        "lastUpdated": "2026-03-27T04:41:17.030Z"
       },
-      "lastFile": "c:/projects/maddit/src/main/java/com/maddit/vo/ComCodeDtlVO.java"
+      "lastFile": "c:/projects/maddit/src/main/java/com/maddit/vo/BoardPostVO.java"
     },
     "controller": {
       "phase": "do",
@@ -33,9 +33,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-21T16:51:03.101Z",
-        "lastUpdated": "2026-03-24T14:28:28.376Z"
+        "lastUpdated": "2026-03-27T07:34:26.395Z"
       },
-      "lastFile": "c:/projects/maddit/src/main/java/com/maddit/admin/controller/AdminController.java"
+      "lastFile": "c:/projects/maddit/src/main/java/com/maddit/controller/HomeController.java"
     },
     "mapper": {
       "phase": "do",
@@ -46,9 +46,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-23T00:39:37.289Z",
-        "lastUpdated": "2026-03-25T00:44:27.236Z"
+        "lastUpdated": "2026-03-27T05:53:21.539Z"
       },
-      "lastFile": "c:/projects/maddit/src/main/java/com/maddit/mapper/CommonMapper.java"
+      "lastFile": "c:/projects/maddit/src/main/java/com/maddit/mapper/ProgramBoardMapper.java"
     },
     "service": {
       "phase": "do",
@@ -59,9 +59,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-23T00:40:22.522Z",
-        "lastUpdated": "2026-03-25T00:44:41.052Z"
+        "lastUpdated": "2026-03-27T05:53:00.763Z"
       },
-      "lastFile": "c:/projects/maddit/src/main/java/com/maddit/service/CommonServiceImpl.java"
+      "lastFile": "c:/projects/maddit/src/main/java/com/maddit/service/ProgramBoardServiceImpl.java"
     },
     "config": {
       "phase": "do",
@@ -98,7 +98,7 @@
   "session": {
     "startedAt": "2026-03-21T05:02:14.489Z",
     "onboardingCompleted": false,
-    "lastActivity": "2026-03-25T00:44:43.454Z"
+    "lastActivity": "2026-03-27T07:34:26.395Z"
   },
   "history": [
     {
@@ -632,6 +632,192 @@
     {
       "timestamp": "2026-03-25T00:44:43.453Z",
       "feature": "config",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-27T00:51:59.770Z",
+      "feature": "vo",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-27T00:52:23.438Z",
+      "feature": "vo",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-27T00:53:11.897Z",
+      "feature": "mapper",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-27T00:53:19.576Z",
+      "feature": "vo",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-27T00:53:27.749Z",
+      "feature": "vo",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-27T00:54:25.553Z",
+      "feature": "service",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-27T00:54:50.646Z",
+      "feature": "service",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-27T00:55:44.747Z",
+      "feature": "controller",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-27T00:55:55.409Z",
+      "feature": "controller",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-27T00:56:02.612Z",
+      "feature": "controller",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-27T00:56:29.745Z",
+      "feature": "controller",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-27T01:01:41.298Z",
+      "feature": "controller",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-27T01:01:48.487Z",
+      "feature": "controller",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-27T01:02:30.896Z",
+      "feature": "controller",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-27T01:03:22.044Z",
+      "feature": "mapper",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-27T01:03:39.290Z",
+      "feature": "service",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-27T01:27:42.293Z",
+      "feature": "controller",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-27T01:27:52.585Z",
+      "feature": "controller",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-27T02:38:09.352Z",
+      "feature": "controller",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-27T02:38:25.832Z",
+      "feature": "controller",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-27T04:41:02.813Z",
+      "feature": "vo",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-27T04:41:17.030Z",
+      "feature": "vo",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-27T04:43:26.293Z",
+      "feature": "controller",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-27T05:47:50.811Z",
+      "feature": "controller",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-27T05:48:01.514Z",
+      "feature": "controller",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-27T05:52:19.849Z",
+      "feature": "controller",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-27T05:52:32.689Z",
+      "feature": "service",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-27T05:53:00.763Z",
+      "feature": "service",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-27T05:53:21.539Z",
+      "feature": "mapper",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-27T06:30:43.710Z",
+      "feature": "controller",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-27T07:34:26.395Z",
+      "feature": "controller",
       "phase": "do",
       "action": "updated"
     }

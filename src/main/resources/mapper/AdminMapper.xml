@@ -133,6 +133,27 @@
          WHERE post_no = #{postNo}
     </update>
 
+    <!-- ════════════ 공지사항 관리 ════════════ -->
+
+    <insert id="insertNotice" useGeneratedKeys="true" keyProperty="postNo">
+        INSERT INTO BRD_POST_MST
+            (board_gbn_cd, member_no, title, content, view_cnt, like_cnt,
+             dislike_cnt, comment_cnt, reg_ip, approval_yn, del_yn)
+        VALUES
+            ('02', 0, #{title}, #{content}, 0, 0,
+             0, 0, #{regIp}, 'Y', 'N')
+    </insert>
+
+    <update id="updateNotice">
+        UPDATE BRD_POST_MST
+           SET title     = #{title},
+               content   = #{content},
+               update_ts = NOW()
+         WHERE post_no       = #{postNo}
+           AND board_gbn_cd  = '02'
+           AND del_yn        = 'N'
+    </update>
+
     <!-- ════════════ 회원 관리 ════════════ -->
 
     <select id="selectMemberList" resultType="MemberVO">

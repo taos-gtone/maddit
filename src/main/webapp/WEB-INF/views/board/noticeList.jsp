@@ -9,7 +9,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <%@ include file="/WEB-INF/views/common/head.jsp" %>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/board/request.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/board/notice.css">
 <body>
 
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
@@ -39,8 +39,6 @@
 
   @SuppressWarnings("unchecked")
   List<BoardPostVO> postList = (List<BoardPostVO>) request.getAttribute("postList");
-
-  boolean isLoggedIn = (loginUser != null);
 %>
 
 <!-- ===== MAIN WRAPPER ===== -->
@@ -51,7 +49,7 @@
     <div class="board-breadcrumb">
       <a href="<%= contextPath %>/">홈</a>
       <span class="bc-sep">›</span>
-      <span>만들어 주세요</span>
+      <span>공지사항</span>
     </div>
 
     <div class="content-inner">
@@ -61,26 +59,13 @@
       <!-- 게시판 헤더 -->
       <div class="board-header">
         <div class="board-header-left">
-          <h1 class="board-title"><svg class="board-title-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg> 만들어 주세요</h1>
+          <h1 class="board-title"><svg class="board-title-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg> 공지사항</h1>
           <span class="board-count">총 <%= totalCount %>개</span>
-        </div>
-        <div class="board-header-right">
-          <% if (isLoggedIn) { %>
-          <a href="<%= contextPath %>/board/request/write" class="btn-write">
-            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
-            글쓰기
-          </a>
-          <% } else { %>
-          <a href="<%= contextPath %>/member/login?redirect=/board/request/write" class="btn-write">
-            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
-            글쓰기
-          </a>
-          <% } %>
         </div>
       </div>
 
       <!-- 검색 바 -->
-      <form class="board-search" action="<%= contextPath %>/board/request" method="get">
+      <form class="board-search" action="<%= contextPath %>/board/notice" method="get">
         <input type="hidden" name="searchType" id="hiddenSearchType" value="<%= searchType %>">
         <div class="custom-select" id="searchTypeSelect">
           <button type="button" class="custom-select-btn">
@@ -148,10 +133,8 @@
             <tr>
               <th class="col-no">번호</th>
               <th class="col-title">제목</th>
-              <th class="col-author">작성자</th>
               <th class="col-date">작성일</th>
               <th class="col-views">조회</th>
-              <th class="col-likes">추천/비추천</th>
             </tr>
           </thead>
           <tbody>
@@ -161,37 +144,22 @@
             <tr>
               <td class="col-no"><%= rowNum-- %></td>
               <td class="col-title">
-                <a class="post-title-link" href="<%= contextPath %>/board/request/view/<%= post.getPostNo() %>?page=<%= currentPage %><%= filterParams %>">
+                <a class="post-title-link" href="<%= contextPath %>/board/notice/view/<%= post.getPostNo() %>?page=<%= currentPage %><%= filterParams %>">
                   <span class="title-text"><%= org.springframework.web.util.HtmlUtils.htmlEscape(post.getTitle()) %></span>
-                  <% if (post.getCommentCnt() > 0) { %>
-                  <span class="comment-cnt">[<%= post.getCommentCnt() %>]</span>
-                  <% } %>
                 </a>
               </td>
-              <td class="col-author"><%= org.springframework.web.util.HtmlUtils.htmlEscape(post.getNickname()) %></td>
               <td class="col-date"><%= post.getTimeAgo() %></td>
               <td class="col-views"><%= post.getViewCnt() %></td>
-              <td class="col-likes">
-                <% if (post.getLikeCnt() > 0) { %>
-                <span class="like-badge">❤️ <%= post.getLikeCnt() %></span>
-                <% } %>
-                <% if (post.getDislikeCnt() > 0) { %>
-                <span class="dislike-badge">👎 <%= post.getDislikeCnt() %></span>
-                <% } %>
-                <% if (post.getLikeCnt() == 0 && post.getDislikeCnt() == 0) { %>
-                <span class="no-reaction">-</span>
-                <% } %>
-              </td>
             </tr>
             <% } } else { %>
             <tr>
-              <td colspan="6">
+              <td colspan="4">
                 <div class="board-empty">
-                  <div class="empty-icon">📭</div>
+                  <div class="empty-icon">📢</div>
                   <% if (!searchKeyword.isEmpty()) { %>
                   <p>검색 결과가 없습니다.</p>
                   <% } else { %>
-                  <p>아직 게시글이 없습니다.<br>첫 번째 요청글을 작성해보세요!</p>
+                  <p>등록된 공지사항이 없습니다.</p>
                   <% } %>
                 </div>
               </td>
@@ -206,11 +174,11 @@
         <% if (currentPage <= 1) { %>
           <span class="pg-btn disabled">‹</span>
         <% } else { %>
-          <a href="<%= contextPath %>/board/request?page=<%= currentPage - 1 %><%= filterParams %>" class="pg-btn">‹</a>
+          <a href="<%= contextPath %>/board/notice?page=<%= currentPage - 1 %><%= filterParams %>" class="pg-btn">‹</a>
         <% } %>
 
         <% if (startPage > 1) { %>
-          <a href="<%= contextPath %>/board/request?page=1<%= filterParams %>" class="pg-btn">1</a>
+          <a href="<%= contextPath %>/board/notice?page=1<%= filterParams %>" class="pg-btn">1</a>
           <% if (startPage > 2) { %><span class="pg-ellipsis">···</span><% } %>
         <% } %>
 
@@ -218,19 +186,19 @@
           <% if (i == currentPage) { %>
             <span class="pg-btn active"><%= i %></span>
           <% } else { %>
-            <a href="<%= contextPath %>/board/request?page=<%= i %><%= filterParams %>" class="pg-btn"><%= i %></a>
+            <a href="<%= contextPath %>/board/notice?page=<%= i %><%= filterParams %>" class="pg-btn"><%= i %></a>
           <% } %>
         <% } %>
 
         <% if (endPage < totalPages) { %>
           <% if (endPage < totalPages - 1) { %><span class="pg-ellipsis">···</span><% } %>
-          <a href="<%= contextPath %>/board/request?page=<%= totalPages %><%= filterParams %>" class="pg-btn"><%= totalPages %></a>
+          <a href="<%= contextPath %>/board/notice?page=<%= totalPages %><%= filterParams %>" class="pg-btn"><%= totalPages %></a>
         <% } %>
 
         <% if (currentPage >= totalPages) { %>
           <span class="pg-btn disabled">›</span>
         <% } else { %>
-          <a href="<%= contextPath %>/board/request?page=<%= currentPage + 1 %><%= filterParams %>" class="pg-btn">›</a>
+          <a href="<%= contextPath %>/board/notice?page=<%= currentPage + 1 %><%= filterParams %>" class="pg-btn">›</a>
         <% } %>
       </nav>
 

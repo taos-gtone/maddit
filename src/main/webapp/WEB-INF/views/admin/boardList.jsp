@@ -41,9 +41,9 @@
   String boardTitle;
   switch (boardGbnCd) {
     case "01": boardTitle = "💬 자유게시판";      break;
-    case "02": boardTitle = "💻 프로그램 게시판"; break;
+    case "02": boardTitle = "🔔 공지사항";        break;
     case "03": boardTitle = "✏️ 만들어 주세요";   break;
-    case "04": boardTitle = "🔔 공지사항";        break;
+    case "04": boardTitle = "💻 프로그램 게시판"; break;
     default:   boardTitle = "📋 게시판 관리";     break;
   }
 %>
@@ -65,6 +65,9 @@
   <div class="adm-card">
     <div class="adm-card-header">
       <div class="adm-card-title">게시글 목록 · 총 <%= totalCount %>건</div>
+      <% if ("02".equals(boardGbnCd)) { %>
+        <a href="/maddit/admin/notice/write" class="adm-btn-sm" style="background:var(--adm-primary);color:#fff;border-color:var(--adm-primary);padding:5px 14px;">+ 공지 작성</a>
+      <% } %>
     </div>
     <table class="adm-table">
       <thead>
@@ -83,7 +86,7 @@
       <tbody>
         <% if (postList != null && !postList.isEmpty()) {
              for (BoardPostVO p : postList) {
-               String gbnLabel = "03".equals(p.getBoardGbnCd()) ? "요청" : "01".equals(p.getBoardGbnCd()) ? "자유" : p.getBoardGbnCd();
+               String gbnLabel = "01".equals(p.getBoardGbnCd()) ? "자유" : "02".equals(p.getBoardGbnCd()) ? "공지" : "03".equals(p.getBoardGbnCd()) ? "요청" : "04".equals(p.getBoardGbnCd()) ? "프로그램" : p.getBoardGbnCd();
         %>
         <tr>
           <td><%= p.getPostNo() %></td>

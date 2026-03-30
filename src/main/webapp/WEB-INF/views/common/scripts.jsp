@@ -115,7 +115,7 @@ function _renderProgGrid(grid, list, base) {
       + '<div class="prog-title">' + _esc(p.title) + '</div>'
       + '<div class="prog-stats">' + catHtml
       + '<span class="prog-stat-item">👁 ' + p.viewCnt + '</span>'
-      + '<span class="prog-stat-item">⬇ ' + p.totalDownloadCnt + '</span>'
+      + '<span class="prog-stat-item"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="vertical-align:-1px"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> ' + p.totalDownloadCnt + '</span>'
       + '<span class="prog-stat-item">💬 ' + (p.commentCnt || 0) + '</span>'
       + '</div></div></div></div>');
   });

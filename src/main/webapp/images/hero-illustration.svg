@@ -1,0 +1,192 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 280" fill="none">
+  <!-- Background grid dots -->
+  <g opacity=".1">
+    <circle cx="40" cy="40" r="2.5" fill="#0a0a0a"/>
+    <circle cx="80" cy="40" r="2.5" fill="#0a0a0a"/>
+    <circle cx="120" cy="40" r="2.5" fill="#0a0a0a"/>
+    <circle cx="160" cy="40" r="2.5" fill="#0a0a0a"/>
+    <circle cx="200" cy="40" r="2.5" fill="#0a0a0a"/>
+    <circle cx="240" cy="40" r="2.5" fill="#0a0a0a"/>
+    <circle cx="280" cy="40" r="2.5" fill="#0a0a0a"/>
+    <circle cx="320" cy="40" r="2.5" fill="#0a0a0a"/>
+    <circle cx="360" cy="40" r="2.5" fill="#0a0a0a"/>
+    <circle cx="400" cy="40" r="2.5" fill="#0a0a0a"/>
+    <circle cx="440" cy="40" r="2.5" fill="#0a0a0a"/>
+    <circle cx="40" cy="80" r="2.5" fill="#0a0a0a"/>
+    <circle cx="80" cy="80" r="2.5" fill="#0a0a0a"/>
+    <circle cx="120" cy="80" r="2.5" fill="#0a0a0a"/>
+    <circle cx="160" cy="80" r="2.5" fill="#0a0a0a"/>
+    <circle cx="200" cy="80" r="2.5" fill="#0a0a0a"/>
+    <circle cx="240" cy="80" r="2.5" fill="#0a0a0a"/>
+    <circle cx="280" cy="80" r="2.5" fill="#0a0a0a"/>
+    <circle cx="320" cy="80" r="2.5" fill="#0a0a0a"/>
+    <circle cx="360" cy="80" r="2.5" fill="#0a0a0a"/>
+    <circle cx="400" cy="80" r="2.5" fill="#0a0a0a"/>
+    <circle cx="440" cy="80" r="2.5" fill="#0a0a0a"/>
+    <circle cx="40" cy="120" r="2.5" fill="#0a0a0a"/>
+    <circle cx="80" cy="120" r="2.5" fill="#0a0a0a"/>
+    <circle cx="120" cy="120" r="2.5" fill="#0a0a0a"/>
+    <circle cx="160" cy="120" r="2.5" fill="#0a0a0a"/>
+    <circle cx="200" cy="120" r="2.5" fill="#0a0a0a"/>
+    <circle cx="240" cy="120" r="2.5" fill="#0a0a0a"/>
+    <circle cx="280" cy="120" r="2.5" fill="#0a0a0a"/>
+    <circle cx="320" cy="120" r="2.5" fill="#0a0a0a"/>
+    <circle cx="360" cy="120" r="2.5" fill="#0a0a0a"/>
+    <circle cx="400" cy="120" r="2.5" fill="#0a0a0a"/>
+    <circle cx="440" cy="120" r="2.5" fill="#0a0a0a"/>
+    <circle cx="40" cy="160" r="2.5" fill="#0a0a0a"/>
+    <circle cx="80" cy="160" r="2.5" fill="#0a0a0a"/>
+    <circle cx="120" cy="160" r="2.5" fill="#0a0a0a"/>
+    <circle cx="160" cy="160" r="2.5" fill="#0a0a0a"/>
+    <circle cx="200" cy="160" r="2.5" fill="#0a0a0a"/>
+    <circle cx="240" cy="160" r="2.5" fill="#0a0a0a"/>
+    <circle cx="280" cy="160" r="2.5" fill="#0a0a0a"/>
+    <circle cx="320" cy="160" r="2.5" fill="#0a0a0a"/>
+    <circle cx="360" cy="160" r="2.5" fill="#0a0a0a"/>
+    <circle cx="400" cy="160" r="2.5" fill="#0a0a0a"/>
+    <circle cx="440" cy="160" r="2.5" fill="#0a0a0a"/>
+    <circle cx="40" cy="200" r="2.5" fill="#0a0a0a"/>
+    <circle cx="80" cy="200" r="2.5" fill="#0a0a0a"/>
+    <circle cx="120" cy="200" r="2.5" fill="#0a0a0a"/>
+    <circle cx="160" cy="200" r="2.5" fill="#0a0a0a"/>
+    <circle cx="200" cy="200" r="2.5" fill="#0a0a0a"/>
+    <circle cx="240" cy="200" r="2.5" fill="#0a0a0a"/>
+    <circle cx="280" cy="200" r="2.5" fill="#0a0a0a"/>
+    <circle cx="320" cy="200" r="2.5" fill="#0a0a0a"/>
+    <circle cx="360" cy="200" r="2.5" fill="#0a0a0a"/>
+    <circle cx="400" cy="200" r="2.5" fill="#0a0a0a"/>
+    <circle cx="440" cy="200" r="2.5" fill="#0a0a0a"/>
+    <circle cx="40" cy="240" r="2.5" fill="#0a0a0a"/>
+    <circle cx="80" cy="240" r="2.5" fill="#0a0a0a"/>
+    <circle cx="120" cy="240" r="2.5" fill="#0a0a0a"/>
+    <circle cx="160" cy="240" r="2.5" fill="#0a0a0a"/>
+    <circle cx="200" cy="240" r="2.5" fill="#0a0a0a"/>
+    <circle cx="240" cy="240" r="2.5" fill="#0a0a0a"/>
+    <circle cx="280" cy="240" r="2.5" fill="#0a0a0a"/>
+    <circle cx="320" cy="240" r="2.5" fill="#0a0a0a"/>
+    <circle cx="360" cy="240" r="2.5" fill="#0a0a0a"/>
+    <circle cx="400" cy="240" r="2.5" fill="#0a0a0a"/>
+    <circle cx="440" cy="240" r="2.5" fill="#0a0a0a"/>
+  </g>
+
+  <!-- Circuit/connection lines -->
+  <g stroke="#ccc" stroke-width="2" opacity=".7">
+    <line x1="100" y1="90" x2="150" y2="90"/>
+    <line x1="150" y1="90" x2="150" y2="140"/>
+    <line x1="330" y1="70" x2="330" y2="130"/>
+    <line x1="330" y1="130" x2="400" y2="130"/>
+    <line x1="100" y1="190" x2="150" y2="190"/>
+    <line x1="150" y1="190" x2="150" y2="230"/>
+    <line x1="400" y1="130" x2="400" y2="200"/>
+    <line x1="400" y1="200" x2="450" y2="200"/>
+  </g>
+
+  <!-- Circuit nodes -->
+  <g>
+    <circle cx="100" cy="90" r="5" fill="#ccc"/>
+    <circle cx="150" cy="140" r="5" fill="#ccc"/>
+    <circle cx="330" cy="70" r="5" fill="#ccc"/>
+    <circle cx="400" cy="130" r="6" fill="#dc2626" opacity=".5"/>
+    <circle cx="100" cy="190" r="5" fill="#ccc"/>
+    <circle cx="150" cy="230" r="5" fill="#ccc"/>
+    <circle cx="450" cy="200" r="5" fill="#ccc"/>
+  </g>
+
+  <!-- Main monitor/screen — bigger -->
+  <rect x="140" y="45" width="200" height="145" rx="0" fill="#0a0a0a"/>
+  <rect x="146" y="51" width="188" height="128" rx="0" fill="#1a1a1a"/>
+  <!-- Screen content - code lines (bigger, bolder) -->
+  <rect x="160" y="65" width="65" height="5" rx="0" fill="#dc2626"/>
+  <rect x="232" y="65" width="45" height="5" rx="0" fill="#666"/>
+  <rect x="160" y="80" width="30" height="5" rx="0" fill="#666"/>
+  <rect x="198" y="80" width="80" height="5" rx="0" fill="#777"/>
+  <rect x="175" y="95" width="50" height="5" rx="0" fill="#dc2626" opacity=".65"/>
+  <rect x="232" y="95" width="38" height="5" rx="0" fill="#666"/>
+  <rect x="175" y="110" width="72" height="5" rx="0" fill="#777"/>
+  <rect x="160" y="125" width="58" height="5" rx="0" fill="#666"/>
+  <rect x="225" y="125" width="50" height="5" rx="0" fill="#dc2626" opacity=".8"/>
+  <rect x="160" y="140" width="85" height="5" rx="0" fill="#555"/>
+  <rect x="252" y="140" width="30" height="5" rx="0" fill="#666"/>
+  <rect x="160" y="155" width="40" height="5" rx="0" fill="#555"/>
+  <!-- Cursor blink -->
+  <rect x="160" y="165" width="3" height="10" rx="0" fill="#dc2626">
+    <animate attributeName="opacity" values="1;0;1" dur="1.2s" repeatCount="indefinite"/>
+  </rect>
+  <!-- Monitor stand -->
+  <rect x="210" y="190" width="60" height="8" rx="0" fill="#0a0a0a"/>
+  <rect x="195" y="198" width="90" height="5" rx="0" fill="#0a0a0a"/>
+
+  <!-- Download arrow (larger, bolder) -->
+  <g transform="translate(375, 30)">
+    <!-- Shadow -->
+    <rect x="22" y="0" width="20" height="55" fill="#dc2626" opacity=".2"/>
+    <polygon points="10,48 32,75 54,48" fill="#dc2626" opacity=".2"/>
+    <!-- Animated arrow -->
+    <g>
+      <rect x="24" y="5" width="16" height="42" fill="#dc2626">
+        <animate attributeName="y" values="5;12;5" dur="2s" repeatCount="indefinite"/>
+        <animate attributeName="height" values="42;35;42" dur="2s" repeatCount="indefinite"/>
+      </rect>
+      <polygon points="12,42 32,66 52,42" fill="#dc2626">
+        <animate attributeName="points" values="12,42 32,66 52,42;12,49 32,73 52,49;12,42 32,66 52,42" dur="2s" repeatCount="indefinite"/>
+      </polygon>
+    </g>
+    <!-- Base line -->
+    <line x1="4" y1="78" x2="60" y2="78" stroke="#dc2626" stroke-width="4"/>
+  </g>
+
+  <!-- AI brain/chip icon — bigger -->
+  <g transform="translate(55, 25)">
+    <!-- Chip body -->
+    <rect x="8" y="8" width="56" height="56" fill="none" stroke="#0a0a0a" stroke-width="3" opacity=".25"/>
+    <!-- Chip pins -->
+    <line x1="22" y1="8" x2="22" y2="-2" stroke="#0a0a0a" stroke-width="2.5" opacity=".2"/>
+    <line x1="36" y1="8" x2="36" y2="-2" stroke="#0a0a0a" stroke-width="2.5" opacity=".2"/>
+    <line x1="50" y1="8" x2="50" y2="-2" stroke="#0a0a0a" stroke-width="2.5" opacity=".2"/>
+    <line x1="22" y1="64" x2="22" y2="74" stroke="#0a0a0a" stroke-width="2.5" opacity=".2"/>
+    <line x1="36" y1="64" x2="36" y2="74" stroke="#0a0a0a" stroke-width="2.5" opacity=".2"/>
+    <line x1="50" y1="64" x2="50" y2="74" stroke="#0a0a0a" stroke-width="2.5" opacity=".2"/>
+    <line x1="8" y1="22" x2="-2" y2="22" stroke="#0a0a0a" stroke-width="2.5" opacity=".2"/>
+    <line x1="8" y1="36" x2="-2" y2="36" stroke="#0a0a0a" stroke-width="2.5" opacity=".2"/>
+    <line x1="8" y1="50" x2="-2" y2="50" stroke="#0a0a0a" stroke-width="2.5" opacity=".2"/>
+    <line x1="64" y1="22" x2="74" y2="22" stroke="#0a0a0a" stroke-width="2.5" opacity=".2"/>
+    <line x1="64" y1="36" x2="74" y2="36" stroke="#0a0a0a" stroke-width="2.5" opacity=".2"/>
+    <line x1="64" y1="50" x2="74" y2="50" stroke="#0a0a0a" stroke-width="2.5" opacity=".2"/>
+    <!-- AI text -->
+    <text x="36" y="44" text-anchor="middle" font-family="Arial,sans-serif" font-size="20" font-weight="900" fill="#0a0a0a" opacity=".2">AI</text>
+  </g>
+
+  <!-- Floating file/document cards — bigger -->
+  <!-- Card 1 -->
+  <g transform="translate(40, 150)" opacity=".8">
+    <rect width="72" height="85" fill="#fff" stroke="#d0d0d0" stroke-width="1.5"/>
+    <rect x="10" y="10" width="35" height="5" fill="#dc2626" opacity=".7"/>
+    <rect x="10" y="22" width="50" height="3" fill="#ddd"/>
+    <rect x="10" y="30" width="42" height="3" fill="#ddd"/>
+    <rect x="10" y="38" width="48" height="3" fill="#ddd"/>
+    <rect x="10" y="46" width="36" height="3" fill="#ddd"/>
+    <rect x="10" y="62" width="22" height="14" fill="#dc2626" opacity=".12"/>
+    <rect x="36" y="62" width="22" height="14" fill="#0a0a0a" opacity=".08"/>
+  </g>
+
+  <!-- Card 2 (overlapping) -->
+  <g transform="translate(390, 135)" opacity=".65">
+    <rect width="80" height="72" fill="#fff" stroke="#d0d0d0" stroke-width="1.5"/>
+    <rect x="10" y="10" width="28" height="5" fill="#0a0a0a" opacity=".4"/>
+    <rect x="10" y="22" width="58" height="3" fill="#ddd"/>
+    <rect x="10" y="30" width="50" height="3" fill="#ddd"/>
+    <rect x="10" y="38" width="55" height="3" fill="#ddd"/>
+    <rect x="10" y="50" width="20" height="14" fill="#dc2626" opacity=".15"/>
+  </g>
+
+  <!-- Decorative brackets < / > — bigger, bolder -->
+  <g font-family="monospace" font-weight="900" fill="#0a0a0a">
+    <text x="20" y="265" font-size="60" opacity=".1">&lt;</text>
+    <text x="410" y="45" font-size="60" opacity=".1">/&gt;</text>
+  </g>
+
+  <!-- Red accent squares — bigger -->
+  <rect x="430" y="230" width="30" height="30" fill="#dc2626" opacity=".12"/>
+  <rect x="400" y="238" width="16" height="16" fill="#dc2626" opacity=".08"/>
+  <rect x="15" y="120" width="18" height="18" fill="#dc2626" opacity=".1"/>
+</svg>

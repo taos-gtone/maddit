@@ -49,6 +49,11 @@ public interface ProgramBoardMapper {
     /* ── 조회수 ── */
     void updateViewCnt(@Param("postNo") long postNo);
 
+    /* ── 통계 ── */
+    int selectTotalFileCount();
+    int selectTotalDownloadSum();
+    int selectTotalMemberCount();
+
     /* ── 메인 노출용 (썸네일 + 게시글 조인) ── */
     List<BoardPostVO> selectProgramPostsForMain(
             @Param("boardCatGbnCd") String boardCatGbnCd,

@@ -28,7 +28,7 @@ import java.util.Map;
 @RequestMapping("/program")
 public class ProgramBoardController {
 
-    private static final String BOARD_GBN_CD     = "02";
+    private static final String BOARD_GBN_CD     = "04";
     private static final int    PAGE_SIZE         = 12;
     private static final int    PAGE_BUTTON_COUNT = 5;
 

@@ -17,9 +17,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
   <meta name="theme-color" content="#ffffff">
   <title>회원가입 - Maddit</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/css/base.css">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/css/layout/header.css">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/css/layout/footer.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/css/home/programs.css">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/css/member/register.css">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/css/responsive.css">
 </head>
@@ -27,14 +32,26 @@
 
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
 
+<!-- ===== 히어로 배너 ===== -->
+<div class="member-hero-wrap">
+  <%@ include file="/WEB-INF/views/common/hero.jsp" %>
+</div>
+
 <!-- ===== 회원가입 폼 ===== -->
 <div class="register-wrap">
   <div class="register-card" id="registerCard">
 
+    <!-- 로고 -->
+    <div class="register-logo">
+      <a href="${pageContext.request.contextPath}/">
+        <img src="${pageContext.request.contextPath}/images/maddit_logo3.png" alt="MADDIT" />
+      </a>
+    </div>
+
     <!-- 헤더 -->
     <div class="register-card-header">
       <h1 class="register-title">회원가입</h1>
-      <p class="register-subtitle">Maddit에 가입하고 다양한 소프트웨어를 만나보세요</p>
+      <p class="register-subtitle"><span style="color:#dc2626;font-weight:800;">메딧</span>에 가입하고 다양한 소프트웨어를 만나보세요</p>
     </div>
 
     <!-- 폼 -->

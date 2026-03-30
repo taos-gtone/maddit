@@ -1,105 +1,77 @@
 /* ============================================
-   HOME — 게시판 섹션
+   HOME — Board Panels
+   Red / White / Black editorial
 ============================================ */
+.boards-section-title {
+  font-size:13px;font-weight:800;color:var(--black);
+  text-transform:uppercase;letter-spacing:2px;
+  margin-bottom:20px;
+  padding-bottom:10px;
+  border-bottom:2px solid var(--black);
+  display:inline-block;
+}
 
 .boards-wrap {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 24px;
+  display:grid;grid-template-columns:1fr 1fr;gap:1px;
+  background:var(--black);
+  border:1px solid var(--black);
 }
 
 .board-panel {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  overflow: hidden;
+  background:var(--white);
+  transition:background var(--dur);
+  overflow:hidden;
+  min-width:0;
 }
 
 .board-panel-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 14px 16px;
-  border-bottom: 1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:12px 16px;
+  border-bottom:1px solid var(--mid-gray);
+  background:var(--white);
 }
-
 .board-panel-title {
-  font-size: 16px;
-  font-weight: 700;
-  color: var(--text-1);
-  display: flex;
-  align-items: center;
-  gap: 6px;
+  font-size:15px;font-weight:900;color:var(--black);
+  display:flex;align-items:center;gap:6px;
 }
-
-.board-panel-actions {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
+.board-panel-actions { display:flex;align-items:center;gap:8px; }
 
 .btn-write {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--accent);
-  border: 1px solid var(--accent);
-  border-radius: 20px;
-  padding: 0 12px;
-  height: 30px;
-  text-decoration: none;
-  background: none;
-  transition: background var(--transition), color var(--transition);
+  display:inline-flex;align-items:center;gap:4px;
+  font-size:13px;font-weight:800;
+  color:var(--white);background:var(--red);
+  padding:0 14px;height:30px;
+  text-decoration:none;
+  transition:all var(--dur);
 }
-.btn-write:hover {
-  background: var(--accent);
-  color: #fff;
-}
+.btn-write:hover { background:var(--black); }
 
-.board-list { list-style: none; }
+.board-list { list-style:none; }
 
 .board-item {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 12px 16px;
-  border-bottom: 1px solid #f5f5f5;
-  cursor: pointer;
-  transition: background var(--transition);
+  display:flex;align-items:center;gap:10px;
+  padding:10px 16px;
+  border-bottom:1px solid var(--light-gray);
+  cursor:pointer;transition:all var(--dur);
 }
-.board-item:last-child { border-bottom: none; }
-.board-item:hover { background: #fafafa; }
-.board-item:hover .board-item-title { color: var(--accent); }
+.board-item:last-child { border-bottom:none; }
+.board-item:hover {
+  background:var(--red);
+}
+.board-item:hover .board-item-title { color:var(--white); }
+.board-item:hover .board-item-meta { color:rgba(255,255,255,.6); }
+.board-item:hover .reply-cnt { color:var(--white); }
 
 .board-item-icon {
-  width: 40px; height: 40px;
-  border-radius: 10px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 18px;
-  flex-shrink: 0;
+  width:28px;height:28px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:13px;flex-shrink:0;
 }
-
-.board-item-body { flex: 1; min-width: 0; display: block; }
-
+.board-item-body { flex:1;min-width:0;overflow:hidden;display:block; }
 .board-item-title {
-  font-size: 14px;
-  font-weight: 500;
-  color: var(--text-1);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  margin-bottom: 3px;
-  transition: color var(--transition);
+  font-size:14px;font-weight:700;color:var(--dark-gray);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  margin-bottom:2px;transition:color var(--dur);
 }
-
-.board-item-meta {
-  font-size: 12px;
-  color: var(--text-3);
-}
-
-.reply-cnt {
-  color: var(--accent);
-  font-weight: 600;
-}
+.board-item-meta { font-size:12px;font-weight:500;color:var(--dark-gray);transition:color var(--dur); }
+.reply-cnt { color:var(--red);font-weight:700; }

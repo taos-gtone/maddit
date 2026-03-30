@@ -171,7 +171,7 @@
       <div class="write-bottom-list">
         <div class="board-table-panel">
           <div class="write-list-header">
-            <span class="write-list-title">💬 자유게시판</span>
+            <span class="write-list-title"><svg class="board-title-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> 자유게시판</span>
             <span class="board-count"><%= currentPage %> / <%= totalPages %> 페이지</span>
           </div>
           <table class="board-table">

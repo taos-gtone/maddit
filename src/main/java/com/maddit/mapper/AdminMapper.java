@@ -45,6 +45,10 @@ public interface AdminMapper {
     void adminDeleteComment(@Param("commentNo") long commentNo);
     void syncCommentCnt(@Param("postNo") long postNo);
 
+    /* ── 공지사항 관리 ── */
+    void insertNotice(BoardPostVO post);
+    void updateNotice(BoardPostVO post);
+
     /* ── 회원 관리 ── */
     List<MemberVO> selectMemberList(
             @Param("searchKeyword") String searchKeyword,

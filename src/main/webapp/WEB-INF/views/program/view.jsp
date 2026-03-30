@@ -16,96 +16,134 @@
 <style>
 /* 썸네일 갤러리 */
 .prog-thumbs {
-  display: flex; gap: 12px; flex-wrap: wrap;
-  padding: 20px 28px; border-bottom: 1px solid var(--border);
+  display:flex;gap:12px;flex-wrap:wrap;
+  padding:20px 28px;border-bottom:1px solid var(--mid-gray);
 }
 .prog-thumb-item {
-  border-radius: 8px; overflow: hidden;
-  border: 1px solid var(--border); cursor: pointer;
-  transition: transform .18s, box-shadow .18s;
+  overflow:hidden;border:1px solid var(--mid-gray);cursor:pointer;
+  transition:transform var(--dur),box-shadow var(--dur);
 }
-.prog-thumb-item:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,.1); }
-.prog-thumb-item img { display: block; height: 120px; width: auto; object-fit: cover; }
+.prog-thumb-item:hover { transform:translateY(-2px);box-shadow:var(--shadow-md); }
+.prog-thumb-item img { display:block;height:120px;width:auto;object-fit:cover; }
 
-/* 다운로드 트리거 섹션 */
+/* 첨부파일 섹션 */
 .prog-dl-trigger-section {
-  background: var(--surface); border: 1px solid var(--border);
-  border-radius: var(--radius); overflow: hidden;
-  box-shadow: var(--shadow-sm); margin-top: 20px;
+  background:var(--white);border:1px solid var(--black);
+  overflow:hidden;margin-top:20px;
 }
 .prog-dl-trigger-header {
-  padding: 14px 24px; border-bottom: 1px solid var(--border);
-  font-size: 14px; font-weight: 700; color: var(--text-1); background: #fafafa;
+  padding:14px 24px;border-bottom:1px solid var(--mid-gray);
+  font-size:15px;font-weight:800;color:var(--black);background:var(--light-gray);
 }
 .prog-dl-trigger-row {
-  display: flex; align-items: center; gap: 12px;
-  padding: 12px 24px; border-bottom: 1px solid #f0f0f0;
-  font-size: 13px; color: var(--text-1); transition: background .15s;
+  display:flex;align-items:center;gap:12px;
+  padding:12px 24px;border-bottom:1px solid var(--light-gray);
+  font-size:13px;font-weight:500;color:var(--black);transition:background var(--dur);
 }
-.prog-dl-trigger-row:last-child { border-bottom: none; }
-.prog-dl-trigger-row:hover { background: #f8f9fa; }
-.prog-dl-name { flex: 1; font-weight: 500; }
-.prog-dl-size { color: var(--text-3); font-size: 12px; }
-.prog-dl-cnt { color: var(--text-3); font-size: 12px; }
+.prog-dl-trigger-row:last-child { border-bottom:none; }
+.prog-dl-trigger-row:hover { background:var(--light-gray); }
+.prog-dl-name { font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap; }
+.prog-dl-size { color:var(--dim);font-size:12px;font-weight:600;white-space:nowrap; }
+.prog-dl-cnt { color:var(--dim);font-size:12px;font-weight:600;white-space:nowrap; }
 .prog-dl-btn {
-  padding: 5px 14px; border-radius: 6px; font-size: 13px; font-weight: 600;
-  background: var(--blue, #065fd4); color: #fff; border: none;
-  cursor: pointer; transition: background .18s;
+  padding:6px 16px;font-size:13px;font-weight:800;
+  background:var(--red);color:var(--white);border:none;
+  cursor:pointer;transition:background var(--dur);white-space:nowrap;
 }
-.prog-dl-btn:hover { background: #0550b0; }
-.prog-dl-btn:disabled { background: #aaa; cursor: default; }
+.prog-dl-btn:hover { background:var(--black); }
+.prog-dl-btn:disabled { background:var(--dim);cursor:default; }
 
 /* 이미지 모달 */
 .img-modal-overlay {
-  display: none; position: fixed; inset: 0; z-index: 9999;
-  background: rgba(0,0,0,.85); align-items: center; justify-content: center; cursor: zoom-out;
+  display:none;position:fixed;inset:0;z-index:9999;
+  background:rgba(0,0,0,.85);align-items:center;justify-content:center;cursor:zoom-out;
 }
-.img-modal-overlay.active { display: flex; }
-.img-modal-inner { position: relative; max-width: 90vw; max-height: 90vh; }
-.img-modal-inner img { display: block; max-width: 90vw; max-height: 85vh; object-fit: contain; border-radius: 8px; box-shadow: 0 8px 32px rgba(0,0,0,.4); }
+.img-modal-overlay.active { display:flex; }
+.img-modal-inner { position:relative;max-width:90vw;max-height:90vh; }
+.img-modal-inner img { display:block;max-width:90vw;max-height:85vh;object-fit:contain;box-shadow:0 8px 32px rgba(0,0,0,.4); }
 .img-modal-close {
-  position: absolute; top: -12px; right: -12px; width: 32px; height: 32px; border-radius: 50%;
-  background: var(--accent, #e94560); color: #fff; border: none; font-size: 16px; cursor: pointer;
-  display: flex; align-items: center; justify-content: center;
+  position:absolute;top:-14px;right:-14px;width:32px;height:32px;
+  background:var(--red);color:var(--white);border:none;font-size:18px;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
 }
-.img-modal-close:hover { transform: scale(1.1); }
+.img-modal-close:hover { background:var(--black); }
 
-/* 다운로드 팝업 */
-.dl-popup-overlay { display: none; position: fixed; inset: 0; z-index: 10000; background: rgba(0,0,0,.6); align-items: center; justify-content: center; }
-.dl-popup-overlay.active { display: flex; }
-.dl-popup { background: #fff; border-radius: 14px; width: 480px; max-width: 92vw; box-shadow: 0 20px 60px rgba(0,0,0,.25); overflow: hidden; animation: dlPopupIn .25s ease; }
-@keyframes dlPopupIn { from { opacity:0; transform:translateY(20px) scale(.97); } to { opacity:1; transform:translateY(0) scale(1); } }
-.dl-popup-header { display: flex; align-items: center; justify-content: space-between; padding: 18px 24px; border-bottom: 1px solid #f0f0f0; }
-.dl-popup-title { font-size: 16px; font-weight: 700; color: #222; }
-.dl-popup-close { width: 28px; height: 28px; border-radius: 50%; border: none; background: #f0f0f0; color: #666; font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
-.dl-popup-close:hover { background: #e0e0e0; color: #222; }
-.dl-popup-thumb { display: flex; gap: 10px; padding: 16px 24px; overflow-x: auto; border-bottom: 1px solid #f0f0f0; background: #fafafa; justify-content: center; }
-.dl-popup-thumb img { height: 80px; width: auto; border-radius: 6px; object-fit: cover; border: 1px solid #eee; flex-shrink: 0; }
-.dl-popup-ad { padding: 16px 24px; border-bottom: 1px solid #f0f0f0; background: #f8f9fb; text-align: center; min-height: 100px; display: flex; align-items: center; justify-content: center; }
-.dl-popup-ad-placeholder { color: #bbb; font-size: 12px; border: 2px dashed #ddd; border-radius: 8px; padding: 20px 40px; width: 100%; }
-.dl-popup-files { padding: 8px 0; max-height: 240px; overflow-y: auto; }
-.dl-popup-file-row { display: flex; align-items: center; gap: 10px; padding: 10px 24px; border-bottom: 1px solid #f8f8f8; font-size: 13px; color: #444; transition: background .12s; }
-.dl-popup-file-row:last-child { border-bottom: none; }
-.dl-popup-file-row:hover { background: #f5f7fa; }
-.dl-popup-file-name { flex: 1; font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.dl-popup-file-size { color: #999; font-size: 12px; white-space: nowrap; }
-.dl-popup-file-btn { padding: 6px 16px; border-radius: 6px; font-size: 13px; font-weight: 600; background: var(--blue, #065fd4); color: #fff; border: none; cursor: pointer; white-space: nowrap; }
-.dl-popup-file-btn:hover { background: #0550b0; }
-.dl-popup-file-btn:disabled { background: #aaa; cursor: default; }
+/* 다운로드 팝업 — editorial */
+.dl-popup-overlay { display:none;position:fixed;inset:0;z-index:10000;background:rgba(0,0,0,.6);align-items:center;justify-content:center; }
+.dl-popup-overlay.active { display:flex; }
+.dl-popup {
+  background:var(--white);width:480px;max-width:92vw;
+  border:1px solid var(--black);overflow:hidden;
+  animation:dlPopupIn .2s var(--ease);
+}
+@keyframes dlPopupIn { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
 
-/* 프로그레스 영역 */
-.dl-progress-area { display: none; padding: 14px 24px; border-top: 1px solid #f0f0f0; background: #f8f9fb; }
-.dl-progress-area.active { display: block; }
-.dl-progress-bar-bg { width: 100%; height: 8px; background: #e8e8e8; border-radius: 4px; overflow: hidden; }
-.dl-progress-bar-fill { height: 100%; width: 0%; border-radius: 4px; background: linear-gradient(90deg, #065fd4, #4f8cff); transition: width .15s ease; }
-.dl-progress-info { display: flex; align-items: center; justify-content: space-between; margin-top: 6px; font-size: 12px; color: #888; }
-.dl-progress-status { font-weight: 600; }
-.dl-progress-status.done { color: #2ecc71; }
-.dl-progress-status.error { color: #e94560; }
+.dl-popup-header {
+  display:flex;align-items:center;justify-content:space-between;
+  padding:16px 24px;border-bottom:2px solid var(--black);
+}
+.dl-popup-title { font-size:16px;font-weight:900;color:var(--black); }
+.dl-popup-close {
+  width:28px;height:28px;border:1px solid var(--mid-gray);
+  background:var(--white);color:var(--dark-gray);font-size:16px;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:all var(--dur);
+}
+.dl-popup-close:hover { background:var(--black);color:var(--white);border-color:var(--black); }
 
-.dl-popup-footer { padding: 14px 24px; border-top: 1px solid #f0f0f0; text-align: right; background: #fafafa; }
-.dl-popup-footer-btn { padding: 8px 20px; border-radius: 8px; font-size: 13px; font-weight: 600; background: #f0f0f0; color: #666; border: none; cursor: pointer; }
-.dl-popup-footer-btn:hover { background: #e0e0e0; color: #222; }
+.dl-popup-thumb {
+  display:flex;gap:8px;padding:14px 24px;overflow-x:auto;
+  border-bottom:1px solid var(--mid-gray);background:var(--light-gray);justify-content:center;
+}
+.dl-popup-thumb img { height:80px;width:auto;object-fit:cover;border:1px solid var(--mid-gray);flex-shrink:0; }
+
+.dl-popup-ad {
+  padding:14px 24px;border-bottom:1px solid var(--mid-gray);
+  background:var(--off-white);text-align:center;min-height:90px;
+  display:flex;align-items:center;justify-content:center;
+}
+.dl-popup-ad-placeholder {
+  color:var(--dim);font-size:11px;font-weight:700;
+  border:2px dashed var(--mid-gray);padding:16px 40px;width:100%;
+  text-transform:uppercase;letter-spacing:1px;
+}
+
+.dl-popup-files { padding:4px 0;max-height:240px;overflow-y:auto; }
+.dl-popup-file-row {
+  display:flex;align-items:center;gap:10px;
+  padding:10px 24px;border-bottom:1px solid var(--light-gray);
+  font-size:13px;font-weight:500;color:var(--black);transition:background var(--dur);
+}
+.dl-popup-file-row:last-child { border-bottom:none; }
+.dl-popup-file-row:hover { background:var(--light-gray); }
+.dl-popup-file-name { flex:1;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap; }
+.dl-popup-file-size { color:var(--dim);font-size:12px;font-weight:600;white-space:nowrap; }
+.dl-popup-file-btn {
+  padding:6px 16px;font-size:13px;font-weight:800;
+  background:var(--red);color:var(--white);border:none;
+  cursor:pointer;white-space:nowrap;transition:background var(--dur);
+}
+.dl-popup-file-btn:hover { background:var(--black); }
+.dl-popup-file-btn:disabled { background:var(--dim);cursor:default; }
+
+/* 프로그레스 */
+.dl-progress-area { display:none;padding:14px 24px;border-top:1px solid var(--mid-gray);background:var(--light-gray); }
+.dl-progress-area.active { display:block; }
+.dl-progress-bar-bg { width:100%;height:6px;background:var(--mid-gray);overflow:hidden; }
+.dl-progress-bar-fill { height:100%;width:0%;background:var(--red);transition:width .15s ease; }
+.dl-progress-info { display:flex;align-items:center;justify-content:space-between;margin-top:6px;font-size:12px;color:var(--dim); }
+.dl-progress-status { font-weight:700; }
+.dl-progress-status.done { color:var(--green); }
+.dl-progress-status.error { color:var(--red); }
+
+.dl-popup-footer { padding:12px 24px;border-top:1px solid var(--mid-gray);text-align:right;background:var(--light-gray); }
+.dl-popup-footer-btn {
+  padding:8px 20px;font-size:13px;font-weight:700;
+  background:var(--white);color:var(--dark-gray);
+  border:1px solid var(--mid-gray);cursor:pointer;
+  transition:all var(--dur);
+}
+.dl-popup-footer-btn:hover { background:var(--black);color:var(--white);border-color:var(--black); }
 </style>
 <body>
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
@@ -153,7 +191,7 @@
     <div class="board-breadcrumb">
       <a href="<%= contextPath %>/">홈</a>
       <span class="bc-sep">›</span>
-      <a href="<%= contextPath %>/program/list">프로그램</a>
+      <a href="<%= contextPath %>/program/list">프로그램 게시판</a>
       <span class="bc-sep">›</span>
       <span>상세보기</span>
     </div>
@@ -168,14 +206,12 @@
           <div class="view-title"><%= org.springframework.web.util.HtmlUtils.htmlEscape(post.getTitle()) %></div>
           <div class="view-meta">
             <% if (post.getCatNm() != null) { %>
-            <span class="view-meta-author"><%= post.getCatNm() %></span>
+            <span class="view-meta-author cat-badge"><%= post.getCatNm() %></span>
             <span class="meta-dot">·</span>
             <% } %>
-            <span class="meta-author"><%= post.getNickname() %></span>
+            <span style="font-weight:700;color:var(--black);"><%= post.getTimeAgo() %></span>
             <span class="meta-dot">·</span>
-            <span><%= post.getTimeAgo() %></span>
-            <span class="meta-dot">·</span>
-            <span>조회 <%= post.getViewCnt() %></span>
+            <span style="font-weight:700;color:var(--black);">조회 <%= post.getViewCnt() %></span>
           </div>
         </div>
 
@@ -204,7 +240,7 @@
         <div class="prog-dl-trigger-row">
           <span class="prog-dl-name">📄 <%= org.springframework.web.util.HtmlUtils.htmlEscape(f.getOrgFileNm()) %></span>
           <span class="prog-dl-size"><%= f.getFileSizeFmt() %></span>
-          <span class="prog-dl-cnt">⬇ <%= f.getDownloadCnt() %></span>
+          <span class="prog-dl-cnt"><svg style="width:13px;height:13px;vertical-align:-2px;margin-right:2px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> <%= f.getDownloadCnt() %></span>
           <button class="prog-dl-btn" onclick="openDlPopup(<%= f.getFileNo() %>)">다운로드</button>
         </div>
         <% } %>
@@ -270,7 +306,7 @@
       <div class="write-bottom-list">
         <div class="board-table-panel">
           <div class="write-list-header">
-            <span class="write-list-title">💻 프로그램</span>
+            <span class="write-list-title"><svg class="board-title-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> 프로그램 게시판</span>
             <span class="board-count"><%= currentPage %> / <%= totalPages %> 페이지</span>
           </div>
           <table class="board-table">
@@ -279,7 +315,6 @@
                 <th class="col-no">번호</th>
                 <th style="width:80px;">카테고리</th>
                 <th class="col-title">제목</th>
-                <th class="col-author">작성자</th>
                 <th class="col-date">작성일</th>
                 <th class="col-views">조회</th>
                 <th style="width:70px;">다운로드</th>
@@ -299,10 +334,9 @@
                     <span class="title-text"><%= org.springframework.web.util.HtmlUtils.htmlEscape(lp.getTitle()) %></span>
                   </a>
                 </td>
-                <td class="col-author"><%= org.springframework.web.util.HtmlUtils.htmlEscape(lp.getNickname()) %></td>
                 <td class="col-date"><%= lp.getTimeAgo() %></td>
                 <td class="col-views"><%= lp.getViewCnt() %></td>
-                <td style="font-size:12px;color:var(--text-3);"><%= lp.getTotalDownloadCnt() > 0 ? "⬇ " + lp.getTotalDownloadCnt() : "-" %></td>
+                <td style="font-size:12px;color:var(--text-3);"><% if (lp.getTotalDownloadCnt() > 0) { %><svg style="width:13px;height:13px;vertical-align:-2px;margin-right:2px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg><%= lp.getTotalDownloadCnt() %><% } else { %>-<% } %></td>
               </tr>
               <% } %>
             </tbody>

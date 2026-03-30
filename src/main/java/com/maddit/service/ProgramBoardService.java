@@ -30,6 +30,11 @@ public interface ProgramBoardService {
     List<BoardPostFileThumbVO> getThumbsByPostNo(long postNo);
     BoardPostFileThumbVO getMainThumb(long postNo);
 
+    /* 통계 */
+    int getTotalFileCount();
+    int getTotalDownloadSum();
+    int getTotalMemberCount();
+
     /* 메인 노출 */
     List<BoardPostVO> getPostsForMain(String boardCatGbnCd, int page, int pageSize);
     List<BoardPostVO> getPostsForMain(String boardCatGbnCd, String sort, int page, int pageSize);

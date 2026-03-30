@@ -185,6 +185,45 @@ public class AdminController {
         return ResponseEntity.ok(r);
     }
 
+    /* ════════ 공지사항 글쓰기 / 수정 ════════ */
+
+    @GetMapping("/notice/write")
+    public String noticeWriteForm() {
+        return "admin/noticeWrite";
+    }
+
+    @PostMapping("/notice/write")
+    public String noticeWrite(@RequestParam String title, @RequestParam String content,
+                              HttpServletRequest request) {
+        BoardPostVO post = new BoardPostVO();
+        post.setTitle(title.trim());
+        post.setContent(content.trim());
+        post.setRegIp(resolveIp(request));
+        adminService.writeNotice(post);
+        return "redirect:/maddit/admin/board/list?boardGbnCd=02";
+    }
+
+    @GetMapping("/notice/edit/{postNo}")
+    public String noticeEditForm(@PathVariable long postNo, Model model) {
+        BoardPostVO post = boardService.getPost(postNo);
+        if (post == null || !"02".equals(post.getBoardGbnCd())) {
+            return "redirect:/maddit/admin/board/list?boardGbnCd=02";
+        }
+        model.addAttribute("post", post);
+        return "admin/noticeEdit";
+    }
+
+    @PostMapping("/notice/edit/{postNo}")
+    public String noticeEdit(@PathVariable long postNo,
+                             @RequestParam String title, @RequestParam String content) {
+        BoardPostVO post = new BoardPostVO();
+        post.setPostNo(postNo);
+        post.setTitle(title.trim());
+        post.setContent(content.trim());
+        adminService.editNotice(post);
+        return "redirect:/maddit/admin/board/view/" + postNo + "?boardGbnCd=02";
+    }
+
     /* ════════ 회원 관리 ════════ */
 
     @GetMapping("/member/list")

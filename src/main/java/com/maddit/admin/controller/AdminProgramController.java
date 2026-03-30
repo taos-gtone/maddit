@@ -103,7 +103,7 @@ public class AdminProgramController {
         long memberNo = 0; // 관리자는 member_no = 0
 
         BoardPostVO post = new BoardPostVO();
-        post.setBoardGbnCd("02");
+        post.setBoardGbnCd("04");
         post.setBoardCatGbnCd(boardCatGbnCd);
         post.setMemberNo(memberNo);
         post.setTitle(title.trim());

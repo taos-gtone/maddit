@@ -33,7 +33,7 @@ public class HomeController {
         List<BoardPostVO> requestPosts = boardService.getPostList("03", null, null, 0, 1, 5);
         List<BoardPostVO> freePosts    = boardService.getPostList("01", null, null, 0, 1, 5);
         List<BoardPostVO> programBoardPosts = programBoardService.getPostList(null, null, null, 1, 5);
-        List<BoardPostVO> noticePosts  = boardService.getPostList("04", null, null, 0, 1, 5);
+        List<BoardPostVO> noticePosts  = boardService.getPostList("02", null, null, 0, 1, 5);
         model.addAttribute("requestPosts", requestPosts);
         model.addAttribute("freePosts", freePosts);
         model.addAttribute("programBoardPosts", programBoardPosts);
@@ -61,7 +61,6 @@ public class HomeController {
         }
         model.addAttribute("popularList", popularList);
 
-        // 세션 정보
         return "index";
     }
 
@@ -89,6 +88,12 @@ public class HomeController {
         }
         return result;
     }
+
+    @GetMapping("/terms")
+    public String terms() { return "policy/terms"; }
+
+    @GetMapping("/privacy")
+    public String privacy() { return "policy/privacy"; }
 
     @GetMapping("/error/404")
     public String error404() { return "error/404"; }

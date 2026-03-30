@@ -26,4 +26,7 @@ public interface AdminService {
 
     List<MemberVO> getMemberList(String searchKeyword, int page, int pageSize);
     int getMemberCount(String searchKeyword);
+
+    void writeNotice(BoardPostVO post);
+    void editNotice(BoardPostVO post);
 }

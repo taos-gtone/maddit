@@ -56,10 +56,12 @@
 
     <div class="content-inner">
 
+      <%@ include file="/WEB-INF/views/common/hero.jsp" %>
+
       <!-- 게시판 헤더 -->
       <div class="board-header">
         <div class="board-header-left">
-          <h1 class="board-title">💬 자유게시판</h1>
+          <h1 class="board-title"><svg class="board-title-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> 자유게시판</h1>
           <span class="board-count">총 <%= totalCount %>개</span>
         </div>
         <div class="board-header-right">
@@ -79,11 +81,18 @@
 
       <!-- 검색 바 -->
       <form class="board-search" action="<%= contextPath %>/board/free" method="get">
-        <select name="searchType" class="search-select">
-          <option value="all"     <%= "all".equals(searchType)     ? "selected" : "" %>>제목+내용</option>
-          <option value="title"   <%= "title".equals(searchType)   ? "selected" : "" %>>제목</option>
-          <option value="content" <%= "content".equals(searchType) ? "selected" : "" %>>내용</option>
-        </select>
+        <input type="hidden" name="searchType" id="hiddenSearchType" value="<%= searchType %>">
+        <div class="custom-select" id="searchTypeSelect">
+          <button type="button" class="custom-select-btn">
+            <span class="custom-select-label">제목+내용</span>
+            <span class="custom-select-arrow">▾</span>
+          </button>
+          <ul class="custom-select-list">
+            <li data-value="all">제목+내용</li>
+            <li data-value="title">제목</li>
+            <li data-value="content">내용</li>
+          </ul>
+        </div>
         <div class="search-input-wrap">
           <input type="text" name="searchKeyword" placeholder="검색어를 입력하세요" value="<%= searchKeyword %>">
           <button type="submit" aria-label="검색">
@@ -91,6 +100,46 @@
           </button>
         </div>
       </form>
+      <script>
+      (function() {
+        function initCustomSelect(wrapId, hiddenId) {
+          var wrap = document.getElementById(wrapId);
+          var hidden = document.getElementById(hiddenId);
+          var btn = wrap.querySelector('.custom-select-btn');
+          var label = wrap.querySelector('.custom-select-label');
+          var list = wrap.querySelector('.custom-select-list');
+          var items = list.querySelectorAll('li');
+          items.forEach(function(li) {
+            if (li.getAttribute('data-value') === hidden.value) {
+              label.textContent = li.textContent;
+              li.classList.add('selected');
+            }
+          });
+          btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            document.querySelectorAll('.custom-select.open').forEach(function(el) {
+              if (el !== wrap) el.classList.remove('open');
+            });
+            wrap.classList.toggle('open');
+          });
+          items.forEach(function(li) {
+            li.addEventListener('click', function() {
+              hidden.value = li.getAttribute('data-value');
+              label.textContent = li.textContent;
+              items.forEach(function(el) { el.classList.remove('selected'); });
+              li.classList.add('selected');
+              wrap.classList.remove('open');
+            });
+          });
+        }
+        document.addEventListener('click', function(e) {
+          document.querySelectorAll('.custom-select.open').forEach(function(el) {
+            if (!el.contains(e.target)) el.classList.remove('open');
+          });
+        });
+        initCustomSelect('searchTypeSelect', 'hiddenSearchType');
+      })();
+      </script>
 
       <!-- 게시글 목록 테이블 -->
       <div class="board-table-panel">

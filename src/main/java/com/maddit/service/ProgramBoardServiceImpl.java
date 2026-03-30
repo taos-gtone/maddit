@@ -175,6 +175,17 @@ public class ProgramBoardServiceImpl implements ProgramBoardService {
         return mapper.selectMainThumbByPostNo(postNo);
     }
 
+    /* ── 통계 ── */
+
+    @Override
+    public int getTotalFileCount() { return mapper.selectTotalFileCount(); }
+
+    @Override
+    public int getTotalDownloadSum() { return mapper.selectTotalDownloadSum(); }
+
+    @Override
+    public int getTotalMemberCount() { return mapper.selectTotalMemberCount(); }
+
     /* ── 메인 노출 ── */
 
     @Override

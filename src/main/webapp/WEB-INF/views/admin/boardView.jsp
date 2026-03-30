@@ -244,6 +244,9 @@
     <div class="adm-view-footer">
       <a href="<%= listUrl %>" class="adm-btn-back">← 목록으로</a>
       <div class="adm-view-actions">
+        <% if ("02".equals(post.getBoardGbnCd())) { %>
+          <a href="/maddit/admin/notice/edit/<%= post.getPostNo() %>" class="adm-btn-action">✏ 수정</a>
+        <% } %>
         <button class="adm-btn-action" onclick="toggleApproval(<%= post.getPostNo() %>)">⚙ 승인 토글</button>
         <button class="adm-btn-action danger" onclick="deletePost(<%= post.getPostNo() %>)">🗑 게시글 삭제</button>
       </div>

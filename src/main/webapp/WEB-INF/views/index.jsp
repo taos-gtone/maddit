@@ -11,13 +11,10 @@
 
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
 
-<!-- ===== MAIN WRAPPER ===== -->
 <div class="page-wrapper">
-
-  <!-- ===== CONTENT ===== -->
   <main class="main-content" id="main">
 
-    <!-- 카테고리 칩바 -->
+    <!-- Category chips -->
     <div class="chips-bar" id="chipsBar">
       <button class="chip active" data-cat="" onclick="filterByCategory(this)">전체</button>
       <c:forEach var="cat" items="${progCategories}">
@@ -27,14 +24,16 @@
 
     <div class="content-inner">
 
-      <!-- 정렬 버튼 -->
+      <%@ include file="/WEB-INF/views/common/hero.jsp" %>
+
+      <!-- Sort -->
       <div class="sort-bar">
         <button class="sort-btn" id="btn-popular" onclick="setSort('popular')">인기순</button>
         <button class="sort-btn" id="btn-latest"  onclick="setSort('latest')">최신순</button>
         <a href="${pageContext.request.contextPath}/program/list" class="sort-view-all">전체보기 ›</a>
       </div>
 
-      <!-- 프로그램 그리드 (인기순/최신순 공통) -->
+      <!-- Programs grid -->
       <div id="prog-wrap">
         <%@ include file="/WEB-INF/views/home/popular.jsp" %>
       </div>
@@ -45,8 +44,7 @@
 
     </div>
   </main>
-
-</div><!-- /page-wrapper -->
+</div>
 
 <%@ include file="/WEB-INF/views/common/footer.jsp" %>
 <%@ include file="/WEB-INF/views/common/scripts.jsp" %>

@@ -4,11 +4,11 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.maddit.mapper.ProgramBoardMapper">
 
-    <!-- 프로그램 게시판 board_gbn_cd = '02' -->
+    <!-- 프로그램 게시판 board_gbn_cd = '04' -->
 
     <!-- 공통 검색 WHERE -->
     <sql id="programSearchWhere">
-        AND p.board_gbn_cd = '02'
+        AND p.board_gbn_cd = '04'
         AND p.del_yn = 'N'
         <if test="boardCatGbnCd != null and boardCatGbnCd != ''">
             AND p.board_cat_gbn_cd = #{boardCatGbnCd}
@@ -73,7 +73,7 @@
         LEFT JOIN MEM_JOIN_INFO m ON m.member_no = p.member_no
         LEFT JOIN COM_CODE_DTL cat ON cat.code_grp_id = 'C014' AND cat.code_id = p.board_cat_gbn_cd AND cat.use_yn = 'Y'
         WHERE p.post_no = #{postNo}
-          AND p.board_gbn_cd = '02'
+          AND p.board_gbn_cd = '04'
           AND p.del_yn = 'N'
     </select>
 
@@ -83,7 +83,7 @@
             (board_gbn_cd, board_cat_gbn_cd, member_no, title, content,
              view_cnt, like_cnt, dislike_cnt, comment_cnt, reg_ip, approval_yn, del_yn)
         VALUES
-            ('02', #{boardCatGbnCd}, #{memberNo}, #{title}, #{content},
+            ('04', #{boardCatGbnCd}, #{memberNo}, #{title}, #{content},
              0, 0, 0, 0, #{regIp}, 'Y', 'N')
     </insert>
 
@@ -95,7 +95,7 @@
                board_cat_gbn_cd = #{boardCatGbnCd},
                update_ts       = NOW()
          WHERE post_no = #{postNo}
-           AND board_gbn_cd = '02'
+           AND board_gbn_cd = '04'
            AND del_yn = 'N'
     </update>
 
@@ -104,7 +104,7 @@
         UPDATE BRD_POST_MST
            SET del_yn = 'Y', del_ts = NOW()
          WHERE post_no = #{postNo}
-           AND board_gbn_cd = '02'
+           AND board_gbn_cd = '04'
     </update>
 
     <!-- 조회수 증가 -->
@@ -226,7 +226,7 @@
         FROM BRD_POST_MST p
         LEFT JOIN MEM_JOIN_INFO m ON m.member_no = p.member_no
         LEFT JOIN COM_CODE_DTL cat ON cat.code_grp_id = 'C014' AND cat.code_id = p.board_cat_gbn_cd AND cat.use_yn = 'Y'
-        WHERE p.board_gbn_cd = '02'
+        WHERE p.board_gbn_cd = '04'
           AND p.del_yn = 'N'
           AND p.approval_yn = 'Y'
         <if test="boardCatGbnCd != null and boardCatGbnCd != ''">
@@ -241,6 +241,27 @@
             </otherwise>
         </choose>
         LIMIT #{pageSize} OFFSET #{offset}
+    </select>
+
+    <!-- 통계: 첨부파일 총 수 -->
+    <select id="selectTotalFileCount" resultType="int">
+        SELECT COUNT(*)
+          FROM BRD_POST_FILE f
+          JOIN BRD_POST_MST p ON p.post_no = f.post_no
+         WHERE p.board_gbn_cd = '04' AND p.del_yn = 'N' AND f.del_yn = 'N'
+    </select>
+
+    <!-- 통계: 다운로드 총 합산 -->
+    <select id="selectTotalDownloadSum" resultType="int">
+        SELECT COALESCE(SUM(f.download_cnt), 0)
+          FROM BRD_POST_FILE f
+          JOIN BRD_POST_MST p ON p.post_no = f.post_no
+         WHERE p.board_gbn_cd = '04' AND p.del_yn = 'N' AND f.del_yn = 'N'
+    </select>
+
+    <!-- 통계: 총 회원수 -->
+    <select id="selectTotalMemberCount" resultType="int">
+        SELECT COUNT(*) FROM MEM_JOIN_INFO
     </select>
 
 </mapper>

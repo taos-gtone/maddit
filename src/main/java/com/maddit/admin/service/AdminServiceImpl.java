@@ -86,4 +86,14 @@ public class AdminServiceImpl implements AdminService {
     public int getMemberCount(String searchKeyword) {
         return adminMapper.selectMemberCount(searchKeyword);
     }
+
+    @Override
+    public void writeNotice(BoardPostVO post) {
+        adminMapper.insertNotice(post);
+    }
+
+    @Override
+    public void editNotice(BoardPostVO post) {
+        adminMapper.updateNotice(post);
+    }
 }
